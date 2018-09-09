@@ -1,12 +1,12 @@
 Inductive answer : Type :=
 | yes : answer
 | no : answer 
-| unknown : answer.
+| unknown : nat -> answer.
 
 Definition toggle_answer (a:answer) : answer := match a with
 | yes => no
 | no => yes
-| unknown => unknown
+| unknown n => unknown n
 end.
 Compute (toggle_answer yes).
 
@@ -59,3 +59,36 @@ match n, m with
 | S _ , O => n
 | S n', S m' => minus n' m'
 end.
+
+Definition foo (a:answer) : answer.
+Admitted.
+
+Theorem thm  : forall n m:answer, n=m -> foo n = foo m.
+intros n m.
+intro eq.
+rewrite -> eq.
+reflexivity.
+
+Theorem plus_O_n : forall n : nat, 0 + n = n.
+Proof.
+  intros n. simpl. reflexivity. Qed.
+
+Theorem mult_0_plus : forall n m : nat,
+  (0 + n) * m = n * m.
+Proof.
+  intros n m.
+  rewrite <- plus_O_n.
+  reflexivity. Qed.
+
+Theorem answer2 : forall a:answer, toggle_answer (toggle_answer a)=a.
+intro a.
+destruct a.
+simpl. reflexivity.
+simpl. reflexivity.
+simpl. reflexivity.
+Qed.
+
+Theorem x : forall n:nat, n=n.
+intro n.
+destruct (plus n 1) eqn:Y.
+reflexivity.

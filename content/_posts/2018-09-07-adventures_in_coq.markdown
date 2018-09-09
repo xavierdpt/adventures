@@ -353,7 +353,235 @@ In Coq, `Theorem`, `Example`, `Lemma`, `Fact`, and `Remark` are synonymous.
 
 **Quest idea**: Find whether `intros`, `simpl` and `reflexivity` are primitive or defined with Coq's tactic definition language.
 
-Stopped at "Proof by rewriting"
+Here's something interesting.
+
+First, we define a function on answers, but do not specify its body.
+
+{% highlight text %}
+Definition foo (a:answer) : answer.
+Admitted.
+{% endhighlight %}
+
+Then, despite the fact that `foo` function is not specified, we can prove a theorem involving `foo`.
+
+{% highlight text %}
+Theorem thm : forall n m:answer, n=m -> foo n = foo m.
+intros n m.
+intro eq.
+rewrite -> eq.
+reflexivity.
+{% endhighlight %}
+
+This is so because `reflexivity` works whenever the trees on the left and on the right of the equality are the same.
+
+Note on `rewrite`: the arrow points to which side of the equality wins.
+
+**Quest idea**: Find out more about how `rewrite` works, i.e. why in the following, it ends with `(0 + n) * m = 0 + n * m` and not something else, since there are multiple possibilities.
+
+{% highlight text %}
+Theorem plus_O_n : forall n : nat, 0 + n = n.
+Proof.
+  intros n. simpl. reflexivity. Qed.
+
+Theorem mult_0_plus : forall n m : nat,
+  (0 + n) * m = n * m.
+Proof.
+  intros n m.
+  rewrite <- plus_O_n.
+  reflexivity. Qed.
+{% endhighlight %}
+
+To perform case analysis, use `destruct`.
+
+Do make proof readables, use bullets such as `-`, `+`, `*` and braces `{...}`.
+
+## V1 Proof by Induction
+
+To make the following work:
+{% highlight text %}
+From X Require Export Y.
+{% endhighlight %}
+
+Execute the following command first:
+{% highlight text %}
+coqc Y.v
+{% endhighlight %}
+
+*Proof by induction*
+
+When simplification + reflexivity does not work, try case analysis.
+
+When case analysis does not work, try proof by induction.
+
+The `induction` tactic generates a case with the induction hypothesis, which can usually be used later with the `rewrite` tactic.
+
+*Proofs within proofs*
+
+`assert` can be use to prove things using the variables of the main proof. `assert` is useful because it is closure-aware.
+
+*Formal vs. informal proof*
+
+Coq proofs do not show the intermediate proof states, which make them difficult to follow.
+
+## V1 Working with Structured Data
+
+*Pairs of numbers*
+
+Coq defines types, function and notations for definining pairs and extracting the first and second element of the pair.
+
+*List of numbers*
+
+A list is either the empty list `nil` or a an element and another list (`cons`).
+
+Coq define types, functions and notations for working with lists. `[]` is the empty list, `x::l` adds an element to a list, and `[x;...;z]` define a list inline.
+
+Common things to do with lists is to repeat them, get their length, append to a list, get the head or get the tail.
+
+*Reasoning about lists*
+
+Prove that reversing a list does not change its length.
+
+**Quest idea**: Convert a Coq proof to a hiearchical informal proof, so that the levels of details can be expanded at will depending on the familiarity level or something.
+
+`Search` can be used to search theorems according to shape.
+
+With ProofGeneral, use C-c C-a C-a to seach, then C-c C-; to copy/paste the result.
+
+*Options*
+
+Options define a `None` constructor with no value and a `Some` constructor with a value.
+
+In Coq, any inductive type with two constructors support the `if ... then ... else ...` construct.
+
+*Partial Maps*
+
+Define an inductive type for identifiers, and an equality test for identifiers.
+
+Then a partial map is either the empty map, or an identifier with a value and another (smaller ?) partial map.
+
+The `update` function overrides one value.
+
+The `find` function scan the map for a supplied identifier.
+
+**Quest idea**: How can the find function be made smarter, i.e. with better than linear complexity?
+
+## V1 Polymorphisms and Higher-Order Functions
+
+*Polymorphism*
+
+Compare
+
+{% highlight text %}
+Inductive list : Type :=
+  | nil : list
+  | cons : nat → list → list.
+{% endhighlight %}
+
+with
+
+{% highlight text %}
+Inductive list (X:Type) : Type :=
+  | nil : list X
+  | cons : X → list X → list X.
+{% endhighlight %}
+
+Coq performs some type inference so that it is rarely necessary to express type arguments.
+
+Another keyword is "unification".
+
+The `Arguments` command specifies which arguments to treat implicitely in curly braces.
+
+{% highlight text %}
+Arguments nil {X}.
+Arguments cons {X} _ _.
+Arguments repeat {X} x count.
+{% endhighlight %}
+
+Arguments can also be declared as impicity by specifying the implicity with curly braces in the definition itself. Then the arguments are implicity in the body of the definition too.
+
+{% highlight text %}
+Inductive list {X:Type} : Type :=
+  | nil : list
+  | cons : X → list → list.
+{% endhighlight %}
+
+Prefixing a term with `@` expose all the arguments defined implicity, for situation where type inference fails.
+
+*Functions as data*
+
+The syntax `fun ... => ...` defines a function inline.
+
+Functionals include `filter`, `map`, `fold`...
+
+Functions can return other functions.
+
+## V1 More Basic Tactics
+
+`apply` works when the conclusion of something match the goal exactly, and leaves the hypotheses of the something as new goals.
+
+`apply Thm with (x:=y)` is useful when the theorem needs something it cannot guess.
+
+`apply Thm with y` works when Coq can figure out where to put the supplied value on its own.
+
+`symetry` is useful to rewrite an equality from right to left.
+
+The constructors of inductive types are injective, and if a value is an instance of some constructor, then it's an instance of no other constructors of that type.
+
+The `inversion` tactics exploit these facts.
+
+`inversion` detects things that cannot work and solve the goals immediately for these cases.
+
+If `H` is hypothesis `A` and `Thm` is `A->B`, then `apply Thm in H` produces a hypothesis which matches `B`.
+
+`symmetry in H` applies the `symetry` tactics on hypothesis `H`.
+
+When a variable is introduced, it is understood that some particular value of this variable is being considered. When using `induction`, pay attention to which variables are in the context.
+
+`generalize dependent n` reverts the effect of `intro` for some particular variable.
+
+`unfold f` unfolds the definition of `f`
+
+`destruct` can perform case analysis on the result of any computation.
+
+{% highlight text %}
+destruct (plus n 1)
+{% endhighlight %}
+
+Adding `eqn` saves the equality of each cases.
+{% highlight text %}
+destruct (plus n 1) eqn:E
+{% endhighlight %}
+
+## V1 Logic in Coq
+
+`Prop` is the type of propositions.
+
+Conjunction `/\` and `split` and `desctruct`.
+
+Applying a projection thereom on a conjunction helps to keep only the part we're intersted in.
+
+Disjunction `\/`, `left` and `right`.
+
+Negation `~` and `exfalso`.
+
+This command
+{% highlight text %}
+Require Import Coq.Setoids.Setoid.
+{% endhighlight %}
+
+allows `rewrite` and `reflexivity` to exploit `iff` statements efficiently.
+
+`exist` performs an implicit destruction with introductions.
+
+The tactic `exist (witness)` provides a witness to an existential.
+
+The proposition which states that some element is in a list is a recursive proposition which can be defined with `Fixpoint` and pattern matching.
+
+Another possibility is to define proposition inductively.
+
+
+
+
 
 
 [Coq]: https://coq.inria.fr/

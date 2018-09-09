@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="https://xavierdpt.github.io/adventures/feed.xml" rel="self" type="application/atom+xml" /><link href="https://xavierdpt.github.io/adventures/" rel="alternate" type="text/html" /><updated>2018-09-07T18:17:01+02:00</updated><id>https://xavierdpt.github.io/adventures/</id><title type="html">Adventures</title><subtitle>Tales of a knowledge traveller.</subtitle><entry><title type="html">Adventures in Coq</title><link href="https://xavierdpt.github.io/adventures/something/2018/09/07/adventures_in_coq.html" rel="alternate" type="text/html" title="Adventures in Coq" /><published>2018-09-07T08:00:00+02:00</published><updated>2018-09-07T08:00:00+02:00</updated><id>https://xavierdpt.github.io/adventures/something/2018/09/07/adventures_in_coq</id><content type="html" xml:base="https://xavierdpt.github.io/adventures/something/2018/09/07/adventures_in_coq.html">&lt;p&gt;&lt;a href=&quot;https://coq.inria.fr/&quot;&gt;Coq&lt;/a&gt; is a formal proof and verification system, which allow to proof mathematical statements and certify programs against a specification.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="http://localhost:4000/adventures/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/adventures/" rel="alternate" type="text/html" /><updated>2018-09-09T15:04:10+02:00</updated><id>http://localhost:4000/adventures/</id><title type="html">Adventures</title><subtitle>Tales of a knowledge traveller.</subtitle><entry><title type="html">Adventures in Coq</title><link href="http://localhost:4000/adventures/something/2018/09/07/adventures_in_coq.html" rel="alternate" type="text/html" title="Adventures in Coq" /><published>2018-09-07T08:00:00+02:00</published><updated>2018-09-07T08:00:00+02:00</updated><id>http://localhost:4000/adventures/something/2018/09/07/adventures_in_coq</id><content type="html" xml:base="http://localhost:4000/adventures/something/2018/09/07/adventures_in_coq.html">&lt;p&gt;&lt;a href=&quot;https://coq.inria.fr/&quot;&gt;Coq&lt;/a&gt; is a formal proof and verification system, which allow to proof mathematical statements and certify programs against a specification.&lt;/p&gt;
 
 &lt;p&gt;The &lt;a href=&quot;https://coq.inria.fr/documentation&quot;&gt;documentation section&lt;/a&gt; has a link to &lt;a href=&quot;https://softwarefoundations.cis.upenn.edu/&quot;&gt;Software Foundations&lt;/a&gt;, a 4-Volumes work about functional programming, theorem proving, operational semantics, Hoare logic, type systems, specification and verification.&lt;/p&gt;
 
@@ -351,4 +351,208 @@ end.&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;&lt;strong&gt;Quest idea&lt;/strong&gt;: Find whether &lt;code class=&quot;highlighter-rouge&quot;&gt;intros&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;simpl&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;reflexivity&lt;/code&gt; are primitive or defined with Coq’s tactic definition language.&lt;/p&gt;
 
-&lt;p&gt;Stopped at “Proof by rewriting”&lt;/p&gt;</content><author><name></name></author><summary type="html">Coq is a formal proof and verification system, which allow to proof mathematical statements and certify programs against a specification.</summary></entry></feed>
+&lt;p&gt;Here’s something interesting.&lt;/p&gt;
+
+&lt;p&gt;First, we define a function on answers, but do not specify its body.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;Definition foo (a:answer) : answer.
+Admitted.&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Then, despite the fact that &lt;code class=&quot;highlighter-rouge&quot;&gt;foo&lt;/code&gt; function is not specified, we can prove a theorem involving &lt;code class=&quot;highlighter-rouge&quot;&gt;foo&lt;/code&gt;.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;Theorem thm : forall n m:answer, n=m -&amp;gt; foo n = foo m.
+intros n m.
+intro eq.
+rewrite -&amp;gt; eq.
+reflexivity.&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;This is so because &lt;code class=&quot;highlighter-rouge&quot;&gt;reflexivity&lt;/code&gt; works whenever the trees on the left and on the right of the equality are the same.&lt;/p&gt;
+
+&lt;p&gt;Note on &lt;code class=&quot;highlighter-rouge&quot;&gt;rewrite&lt;/code&gt;: the arrow points to which side of the equality wins.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Quest idea&lt;/strong&gt;: Find out more about how &lt;code class=&quot;highlighter-rouge&quot;&gt;rewrite&lt;/code&gt; works, i.e. why in the following, it ends with &lt;code class=&quot;highlighter-rouge&quot;&gt;(0 + n) * m = 0 + n * m&lt;/code&gt; and not something else, since there are multiple possibilities.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;Theorem plus_O_n : forall n : nat, 0 + n = n.
+Proof.
+  intros n. simpl. reflexivity. Qed.
+
+Theorem mult_0_plus : forall n m : nat,
+  (0 + n) * m = n * m.
+Proof.
+  intros n m.
+  rewrite &amp;lt;- plus_O_n.
+  reflexivity. Qed.&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;To perform case analysis, use &lt;code class=&quot;highlighter-rouge&quot;&gt;destruct&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Do make proof readables, use bullets such as &lt;code class=&quot;highlighter-rouge&quot;&gt;-&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;+&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;*&lt;/code&gt; and braces &lt;code class=&quot;highlighter-rouge&quot;&gt;{...}&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;v1-proof-by-induction&quot;&gt;V1 Proof by Induction&lt;/h2&gt;
+
+&lt;p&gt;To make the following work:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;From X Require Export Y.&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Execute the following command first:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;coqc Y.v&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;em&gt;Proof by induction&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;When simplification + reflexivity does not work, try case analysis.&lt;/p&gt;
+
+&lt;p&gt;When case analysis does not work, try proof by induction.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;induction&lt;/code&gt; tactic generates a case with the induction hypothesis, which can usually be used later with the &lt;code class=&quot;highlighter-rouge&quot;&gt;rewrite&lt;/code&gt; tactic.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Proofs within proofs&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;assert&lt;/code&gt; can be use to prove things using the variables of the main proof. &lt;code class=&quot;highlighter-rouge&quot;&gt;assert&lt;/code&gt; is useful because it is closure-aware.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Formal vs. informal proof&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Coq proofs do not show the intermediate proof states, which make them difficult to follow.&lt;/p&gt;
+
+&lt;h2 id=&quot;v1-working-with-structured-data&quot;&gt;V1 Working with Structured Data&lt;/h2&gt;
+
+&lt;p&gt;&lt;em&gt;Pairs of numbers&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Coq defines types, function and notations for definining pairs and extracting the first and second element of the pair.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;List of numbers&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;A list is either the empty list &lt;code class=&quot;highlighter-rouge&quot;&gt;nil&lt;/code&gt; or a an element and another list (&lt;code class=&quot;highlighter-rouge&quot;&gt;cons&lt;/code&gt;).&lt;/p&gt;
+
+&lt;p&gt;Coq define types, functions and notations for working with lists. &lt;code class=&quot;highlighter-rouge&quot;&gt;[]&lt;/code&gt; is the empty list, &lt;code class=&quot;highlighter-rouge&quot;&gt;x::l&lt;/code&gt; adds an element to a list, and &lt;code class=&quot;highlighter-rouge&quot;&gt;[x;...;z]&lt;/code&gt; define a list inline.&lt;/p&gt;
+
+&lt;p&gt;Common things to do with lists is to repeat them, get their length, append to a list, get the head or get the tail.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Reasoning about lists&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Prove that reversing a list does not change its length.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Quest idea&lt;/strong&gt;: Convert a Coq proof to a hiearchical informal proof, so that the levels of details can be expanded at will depending on the familiarity level or something.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Search&lt;/code&gt; can be used to search theorems according to shape.&lt;/p&gt;
+
+&lt;p&gt;With ProofGeneral, use C-c C-a C-a to seach, then C-c C-; to copy/paste the result.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Options&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Options define a &lt;code class=&quot;highlighter-rouge&quot;&gt;None&lt;/code&gt; constructor with no value and a &lt;code class=&quot;highlighter-rouge&quot;&gt;Some&lt;/code&gt; constructor with a value.&lt;/p&gt;
+
+&lt;p&gt;In Coq, any inductive type with two constructors support the &lt;code class=&quot;highlighter-rouge&quot;&gt;if ... then ... else ...&lt;/code&gt; construct.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Partial Maps&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Define an inductive type for identifiers, and an equality test for identifiers.&lt;/p&gt;
+
+&lt;p&gt;Then a partial map is either the empty map, or an identifier with a value and another (smaller ?) partial map.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;update&lt;/code&gt; function overrides one value.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;find&lt;/code&gt; function scan the map for a supplied identifier.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Quest idea&lt;/strong&gt;: How can the find function be made smarter, i.e. with better than linear complexity?&lt;/p&gt;
+
+&lt;h2 id=&quot;v1-polymorphisms-and-higher-order-functions&quot;&gt;V1 Polymorphisms and Higher-Order Functions&lt;/h2&gt;
+
+&lt;p&gt;&lt;em&gt;Polymorphism&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Compare&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;Inductive list : Type :=
+  | nil : list
+  | cons : nat → list → list.&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;with&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;Inductive list (X:Type) : Type :=
+  | nil : list X
+  | cons : X → list X → list X.&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Coq performs some type inference so that it is rarely necessary to express type arguments.&lt;/p&gt;
+
+&lt;p&gt;Another keyword is “unification”.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;Arguments&lt;/code&gt; command specifies which arguments to treat implicitely in curly braces.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;Arguments nil {X}.
+Arguments cons {X} _ _.
+Arguments repeat {X} x count.&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Arguments can also be declared as impicity by specifying the implicity with curly braces in the definition itself. Then the arguments are implicity in the body of the definition too.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;Inductive list {X:Type} : Type :=
+  | nil : list
+  | cons : X → list → list.&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Prefixing a term with &lt;code class=&quot;highlighter-rouge&quot;&gt;@&lt;/code&gt; expose all the arguments defined implicity, for situation where type inference fails.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Functions as data&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;The syntax &lt;code class=&quot;highlighter-rouge&quot;&gt;fun ... =&amp;gt; ...&lt;/code&gt; defines a function inline.&lt;/p&gt;
+
+&lt;p&gt;Functionals include &lt;code class=&quot;highlighter-rouge&quot;&gt;filter&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;map&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;fold&lt;/code&gt;…&lt;/p&gt;
+
+&lt;p&gt;Functions can return other functions.&lt;/p&gt;
+
+&lt;h2 id=&quot;v1-more-basic-tactics&quot;&gt;V1 More Basic Tactics&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;apply&lt;/code&gt; works when the conclusion of something match the goal exactly, and leaves the hypotheses of the something as new goals.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;apply Thm with (x:=y)&lt;/code&gt; is useful when the theorem needs something it cannot guess.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;apply Thm with y&lt;/code&gt; works when Coq can figure out where to put the supplied value on its own.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;symetry&lt;/code&gt; is useful to rewrite an equality from right to left.&lt;/p&gt;
+
+&lt;p&gt;The constructors of inductive types are injective, and if a value is an instance of some constructor, then it’s an instance of no other constructors of that type.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;inversion&lt;/code&gt; tactics exploit these facts.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;inversion&lt;/code&gt; detects things that cannot work and solve the goals immediately for these cases.&lt;/p&gt;
+
+&lt;p&gt;If &lt;code class=&quot;highlighter-rouge&quot;&gt;H&lt;/code&gt; is hypothesis &lt;code class=&quot;highlighter-rouge&quot;&gt;A&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;Thm&lt;/code&gt; is &lt;code class=&quot;highlighter-rouge&quot;&gt;A-&amp;gt;B&lt;/code&gt;, then &lt;code class=&quot;highlighter-rouge&quot;&gt;apply Thm in H&lt;/code&gt; produces a hypothesis which matches &lt;code class=&quot;highlighter-rouge&quot;&gt;B&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;symmetry in H&lt;/code&gt; applies the &lt;code class=&quot;highlighter-rouge&quot;&gt;symetry&lt;/code&gt; tactics on hypothesis &lt;code class=&quot;highlighter-rouge&quot;&gt;H&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;When a variable is introduced, it is understood that some particular value of this variable is being considered. When using &lt;code class=&quot;highlighter-rouge&quot;&gt;induction&lt;/code&gt;, pay attention to which variables are in the context.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;generalize dependent n&lt;/code&gt; reverts the effect of &lt;code class=&quot;highlighter-rouge&quot;&gt;intro&lt;/code&gt; for some particular variable.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;unfold f&lt;/code&gt; unfolds the definition of &lt;code class=&quot;highlighter-rouge&quot;&gt;f&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;destruct&lt;/code&gt; can perform case analysis on the result of any computation.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;destruct (plus n 1)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Adding &lt;code class=&quot;highlighter-rouge&quot;&gt;eqn&lt;/code&gt; saves the equality of each cases.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;destruct (plus n 1) eqn:E&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;v1-logic-in-coq&quot;&gt;V1 Logic in Coq&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Prop&lt;/code&gt; is the type of propositions.&lt;/p&gt;
+
+&lt;p&gt;Conjunction &lt;code class=&quot;highlighter-rouge&quot;&gt;/\&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;split&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;desctruct&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Applying a projection thereom on a conjunction helps to keep only the part we’re intersted in.&lt;/p&gt;
+
+&lt;p&gt;Disjunction &lt;code class=&quot;highlighter-rouge&quot;&gt;\/&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;left&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;right&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Negation &lt;code class=&quot;highlighter-rouge&quot;&gt;~&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;exfalso&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;This command&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;Require Import Coq.Setoids.Setoid.&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;allows &lt;code class=&quot;highlighter-rouge&quot;&gt;rewrite&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;reflexivity&lt;/code&gt; to exploit &lt;code class=&quot;highlighter-rouge&quot;&gt;iff&lt;/code&gt; statements efficiently.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;exist&lt;/code&gt; performs an implicit destruction with introductions.&lt;/p&gt;
+
+&lt;p&gt;The tactic &lt;code class=&quot;highlighter-rouge&quot;&gt;exist (witness)&lt;/code&gt; provides a witness to an existential.&lt;/p&gt;
+
+&lt;p&gt;The proposition which states that some element is in a list is a recursive proposition which can be defined with &lt;code class=&quot;highlighter-rouge&quot;&gt;Fixpoint&lt;/code&gt; and pattern matching.&lt;/p&gt;
+
+&lt;p&gt;Another possibility is to define proposition inductively.&lt;/p&gt;</content><author><name></name></author><summary type="html">Coq is a formal proof and verification system, which allow to proof mathematical statements and certify programs against a specification.</summary></entry></feed>

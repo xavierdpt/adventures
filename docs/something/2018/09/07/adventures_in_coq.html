@@ -9,15 +9,15 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Coq is a formal proof and verification system, which allow to proof mathematical statements and certify programs against a specification." />
 <meta property="og:description" content="Coq is a formal proof and verification system, which allow to proof mathematical statements and certify programs against a specification." />
-<link rel="canonical" href="https://xavierdpt.github.io/adventures/something/2018/09/07/adventures_in_coq.html" />
-<meta property="og:url" content="https://xavierdpt.github.io/adventures/something/2018/09/07/adventures_in_coq.html" />
+<link rel="canonical" href="http://localhost:4000/adventures/something/2018/09/07/adventures_in_coq.html" />
+<meta property="og:url" content="http://localhost:4000/adventures/something/2018/09/07/adventures_in_coq.html" />
 <meta property="og:site_name" content="Adventures" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2018-09-07T08:00:00+02:00" />
 <script type="application/ld+json">
-{"@type":"BlogPosting","url":"https://xavierdpt.github.io/adventures/something/2018/09/07/adventures_in_coq.html","headline":"Adventures in Coq","dateModified":"2018-09-07T08:00:00+02:00","datePublished":"2018-09-07T08:00:00+02:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://xavierdpt.github.io/adventures/something/2018/09/07/adventures_in_coq.html"},"description":"Coq is a formal proof and verification system, which allow to proof mathematical statements and certify programs against a specification.","@context":"http://schema.org"}</script>
+{"@type":"BlogPosting","url":"http://localhost:4000/adventures/something/2018/09/07/adventures_in_coq.html","headline":"Adventures in Coq","dateModified":"2018-09-07T08:00:00+02:00","datePublished":"2018-09-07T08:00:00+02:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/adventures/something/2018/09/07/adventures_in_coq.html"},"description":"Coq is a formal proof and verification system, which allow to proof mathematical statements and certify programs against a specification.","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/adventures/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://xavierdpt.github.io/adventures/feed.xml" title="Adventures" /></head>
+<link rel="stylesheet" href="/adventures/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/adventures/feed.xml" title="Adventures" /></head>
 <body><header class="site-header" role="banner">
 
   <div class="wrapper"><a class="site-title" rel="author" href="/adventures/">Adventures</a><nav class="site-nav">
@@ -398,7 +398,211 @@ end.</code></pre></figure>
 
 <p><strong>Quest idea</strong>: Find whether <code class="highlighter-rouge">intros</code>, <code class="highlighter-rouge">simpl</code> and <code class="highlighter-rouge">reflexivity</code> are primitive or defined with Coq’s tactic definition language.</p>
 
-<p>Stopped at “Proof by rewriting”</p>
+<p>Here’s something interesting.</p>
+
+<p>First, we define a function on answers, but do not specify its body.</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Definition foo (a:answer) : answer.
+Admitted.</code></pre></figure>
+
+<p>Then, despite the fact that <code class="highlighter-rouge">foo</code> function is not specified, we can prove a theorem involving <code class="highlighter-rouge">foo</code>.</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Theorem thm : forall n m:answer, n=m -&gt; foo n = foo m.
+intros n m.
+intro eq.
+rewrite -&gt; eq.
+reflexivity.</code></pre></figure>
+
+<p>This is so because <code class="highlighter-rouge">reflexivity</code> works whenever the trees on the left and on the right of the equality are the same.</p>
+
+<p>Note on <code class="highlighter-rouge">rewrite</code>: the arrow points to which side of the equality wins.</p>
+
+<p><strong>Quest idea</strong>: Find out more about how <code class="highlighter-rouge">rewrite</code> works, i.e. why in the following, it ends with <code class="highlighter-rouge">(0 + n) * m = 0 + n * m</code> and not something else, since there are multiple possibilities.</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Theorem plus_O_n : forall n : nat, 0 + n = n.
+Proof.
+  intros n. simpl. reflexivity. Qed.
+
+Theorem mult_0_plus : forall n m : nat,
+  (0 + n) * m = n * m.
+Proof.
+  intros n m.
+  rewrite &lt;- plus_O_n.
+  reflexivity. Qed.</code></pre></figure>
+
+<p>To perform case analysis, use <code class="highlighter-rouge">destruct</code>.</p>
+
+<p>Do make proof readables, use bullets such as <code class="highlighter-rouge">-</code>, <code class="highlighter-rouge">+</code>, <code class="highlighter-rouge">*</code> and braces <code class="highlighter-rouge">{...}</code>.</p>
+
+<h2 id="v1-proof-by-induction">V1 Proof by Induction</h2>
+
+<p>To make the following work:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">From X Require Export Y.</code></pre></figure>
+
+<p>Execute the following command first:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">coqc Y.v</code></pre></figure>
+
+<p><em>Proof by induction</em></p>
+
+<p>When simplification + reflexivity does not work, try case analysis.</p>
+
+<p>When case analysis does not work, try proof by induction.</p>
+
+<p>The <code class="highlighter-rouge">induction</code> tactic generates a case with the induction hypothesis, which can usually be used later with the <code class="highlighter-rouge">rewrite</code> tactic.</p>
+
+<p><em>Proofs within proofs</em></p>
+
+<p><code class="highlighter-rouge">assert</code> can be use to prove things using the variables of the main proof. <code class="highlighter-rouge">assert</code> is useful because it is closure-aware.</p>
+
+<p><em>Formal vs. informal proof</em></p>
+
+<p>Coq proofs do not show the intermediate proof states, which make them difficult to follow.</p>
+
+<h2 id="v1-working-with-structured-data">V1 Working with Structured Data</h2>
+
+<p><em>Pairs of numbers</em></p>
+
+<p>Coq defines types, function and notations for definining pairs and extracting the first and second element of the pair.</p>
+
+<p><em>List of numbers</em></p>
+
+<p>A list is either the empty list <code class="highlighter-rouge">nil</code> or a an element and another list (<code class="highlighter-rouge">cons</code>).</p>
+
+<p>Coq define types, functions and notations for working with lists. <code class="highlighter-rouge">[]</code> is the empty list, <code class="highlighter-rouge">x::l</code> adds an element to a list, and <code class="highlighter-rouge">[x;...;z]</code> define a list inline.</p>
+
+<p>Common things to do with lists is to repeat them, get their length, append to a list, get the head or get the tail.</p>
+
+<p><em>Reasoning about lists</em></p>
+
+<p>Prove that reversing a list does not change its length.</p>
+
+<p><strong>Quest idea</strong>: Convert a Coq proof to a hiearchical informal proof, so that the levels of details can be expanded at will depending on the familiarity level or something.</p>
+
+<p><code class="highlighter-rouge">Search</code> can be used to search theorems according to shape.</p>
+
+<p>With ProofGeneral, use C-c C-a C-a to seach, then C-c C-; to copy/paste the result.</p>
+
+<p><em>Options</em></p>
+
+<p>Options define a <code class="highlighter-rouge">None</code> constructor with no value and a <code class="highlighter-rouge">Some</code> constructor with a value.</p>
+
+<p>In Coq, any inductive type with two constructors support the <code class="highlighter-rouge">if ... then ... else ...</code> construct.</p>
+
+<p><em>Partial Maps</em></p>
+
+<p>Define an inductive type for identifiers, and an equality test for identifiers.</p>
+
+<p>Then a partial map is either the empty map, or an identifier with a value and another (smaller ?) partial map.</p>
+
+<p>The <code class="highlighter-rouge">update</code> function overrides one value.</p>
+
+<p>The <code class="highlighter-rouge">find</code> function scan the map for a supplied identifier.</p>
+
+<p><strong>Quest idea</strong>: How can the find function be made smarter, i.e. with better than linear complexity?</p>
+
+<h2 id="v1-polymorphisms-and-higher-order-functions">V1 Polymorphisms and Higher-Order Functions</h2>
+
+<p><em>Polymorphism</em></p>
+
+<p>Compare</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Inductive list : Type :=
+  | nil : list
+  | cons : nat → list → list.</code></pre></figure>
+
+<p>with</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Inductive list (X:Type) : Type :=
+  | nil : list X
+  | cons : X → list X → list X.</code></pre></figure>
+
+<p>Coq performs some type inference so that it is rarely necessary to express type arguments.</p>
+
+<p>Another keyword is “unification”.</p>
+
+<p>The <code class="highlighter-rouge">Arguments</code> command specifies which arguments to treat implicitely in curly braces.</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Arguments nil {X}.
+Arguments cons {X} _ _.
+Arguments repeat {X} x count.</code></pre></figure>
+
+<p>Arguments can also be declared as impicity by specifying the implicity with curly braces in the definition itself. Then the arguments are implicity in the body of the definition too.</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Inductive list {X:Type} : Type :=
+  | nil : list
+  | cons : X → list → list.</code></pre></figure>
+
+<p>Prefixing a term with <code class="highlighter-rouge">@</code> expose all the arguments defined implicity, for situation where type inference fails.</p>
+
+<p><em>Functions as data</em></p>
+
+<p>The syntax <code class="highlighter-rouge">fun ... =&gt; ...</code> defines a function inline.</p>
+
+<p>Functionals include <code class="highlighter-rouge">filter</code>, <code class="highlighter-rouge">map</code>, <code class="highlighter-rouge">fold</code>…</p>
+
+<p>Functions can return other functions.</p>
+
+<h2 id="v1-more-basic-tactics">V1 More Basic Tactics</h2>
+
+<p><code class="highlighter-rouge">apply</code> works when the conclusion of something match the goal exactly, and leaves the hypotheses of the something as new goals.</p>
+
+<p><code class="highlighter-rouge">apply Thm with (x:=y)</code> is useful when the theorem needs something it cannot guess.</p>
+
+<p><code class="highlighter-rouge">apply Thm with y</code> works when Coq can figure out where to put the supplied value on its own.</p>
+
+<p><code class="highlighter-rouge">symetry</code> is useful to rewrite an equality from right to left.</p>
+
+<p>The constructors of inductive types are injective, and if a value is an instance of some constructor, then it’s an instance of no other constructors of that type.</p>
+
+<p>The <code class="highlighter-rouge">inversion</code> tactics exploit these facts.</p>
+
+<p><code class="highlighter-rouge">inversion</code> detects things that cannot work and solve the goals immediately for these cases.</p>
+
+<p>If <code class="highlighter-rouge">H</code> is hypothesis <code class="highlighter-rouge">A</code> and <code class="highlighter-rouge">Thm</code> is <code class="highlighter-rouge">A-&gt;B</code>, then <code class="highlighter-rouge">apply Thm in H</code> produces a hypothesis which matches <code class="highlighter-rouge">B</code>.</p>
+
+<p><code class="highlighter-rouge">symmetry in H</code> applies the <code class="highlighter-rouge">symetry</code> tactics on hypothesis <code class="highlighter-rouge">H</code>.</p>
+
+<p>When a variable is introduced, it is understood that some particular value of this variable is being considered. When using <code class="highlighter-rouge">induction</code>, pay attention to which variables are in the context.</p>
+
+<p><code class="highlighter-rouge">generalize dependent n</code> reverts the effect of <code class="highlighter-rouge">intro</code> for some particular variable.</p>
+
+<p><code class="highlighter-rouge">unfold f</code> unfolds the definition of <code class="highlighter-rouge">f</code></p>
+
+<p><code class="highlighter-rouge">destruct</code> can perform case analysis on the result of any computation.</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">destruct (plus n 1)</code></pre></figure>
+
+<p>Adding <code class="highlighter-rouge">eqn</code> saves the equality of each cases.</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">destruct (plus n 1) eqn:E</code></pre></figure>
+
+<h2 id="v1-logic-in-coq">V1 Logic in Coq</h2>
+
+<p><code class="highlighter-rouge">Prop</code> is the type of propositions.</p>
+
+<p>Conjunction <code class="highlighter-rouge">/\</code> and <code class="highlighter-rouge">split</code> and <code class="highlighter-rouge">desctruct</code>.</p>
+
+<p>Applying a projection thereom on a conjunction helps to keep only the part we’re intersted in.</p>
+
+<p>Disjunction <code class="highlighter-rouge">\/</code>, <code class="highlighter-rouge">left</code> and <code class="highlighter-rouge">right</code>.</p>
+
+<p>Negation <code class="highlighter-rouge">~</code> and <code class="highlighter-rouge">exfalso</code>.</p>
+
+<p>This command</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Require Import Coq.Setoids.Setoid.</code></pre></figure>
+
+<p>allows <code class="highlighter-rouge">rewrite</code> and <code class="highlighter-rouge">reflexivity</code> to exploit <code class="highlighter-rouge">iff</code> statements efficiently.</p>
+
+<p><code class="highlighter-rouge">exist</code> performs an implicit destruction with introductions.</p>
+
+<p>The tactic <code class="highlighter-rouge">exist (witness)</code> provides a witness to an existential.</p>
+
+<p>The proposition which states that some element is in a list is a recursive proposition which can be defined with <code class="highlighter-rouge">Fixpoint</code> and pattern matching.</p>
+
+<p>Another possibility is to define proposition inductively.</p>
 
 
   </div><a class="u-url" href="/adventures/something/2018/09/07/adventures_in_coq.html" hidden></a>
