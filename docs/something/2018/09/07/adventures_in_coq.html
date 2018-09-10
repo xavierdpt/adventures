@@ -9,15 +9,15 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Coq is a formal proof and verification system, which allow to proof mathematical statements and certify programs against a specification." />
 <meta property="og:description" content="Coq is a formal proof and verification system, which allow to proof mathematical statements and certify programs against a specification." />
-<link rel="canonical" href="http://localhost:4000/adventures/something/2018/09/07/adventures_in_coq.html" />
-<meta property="og:url" content="http://localhost:4000/adventures/something/2018/09/07/adventures_in_coq.html" />
+<link rel="canonical" href="https://xavierdpt.github.io/adventures/something/2018/09/07/adventures_in_coq.html" />
+<meta property="og:url" content="https://xavierdpt.github.io/adventures/something/2018/09/07/adventures_in_coq.html" />
 <meta property="og:site_name" content="Adventures" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2018-09-07T08:00:00+02:00" />
 <script type="application/ld+json">
-{"@type":"BlogPosting","url":"http://localhost:4000/adventures/something/2018/09/07/adventures_in_coq.html","headline":"Adventures in Coq","dateModified":"2018-09-07T08:00:00+02:00","datePublished":"2018-09-07T08:00:00+02:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/adventures/something/2018/09/07/adventures_in_coq.html"},"description":"Coq is a formal proof and verification system, which allow to proof mathematical statements and certify programs against a specification.","@context":"http://schema.org"}</script>
+{"mainEntityOfPage":{"@type":"WebPage","@id":"https://xavierdpt.github.io/adventures/something/2018/09/07/adventures_in_coq.html"},"@type":"BlogPosting","url":"https://xavierdpt.github.io/adventures/something/2018/09/07/adventures_in_coq.html","headline":"Adventures in Coq","dateModified":"2018-09-07T08:00:00+02:00","datePublished":"2018-09-07T08:00:00+02:00","description":"Coq is a formal proof and verification system, which allow to proof mathematical statements and certify programs against a specification.","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/adventures/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/adventures/feed.xml" title="Adventures" /></head>
+<link rel="stylesheet" href="/adventures/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://xavierdpt.github.io/adventures/feed.xml" title="Adventures" /></head>
 <body><header class="site-header" role="banner">
 
   <div class="wrapper"><a class="site-title" rel="author" href="/adventures/">Adventures</a><nav class="site-nav">
@@ -158,43 +158,17 @@
 
 <p>We provide a minimalist example of how to do that in <a href="https://github.com/xavierdpt/adventures/tree/master/trove/SF1Preface/nice">the trove</a>.</p>
 
-<h2 id="v1-preface">V1 Preface</h2>
+<p>Software Foundations is about Coq in particular, and automated theorems in general. Such tools include SAT solvers, SMT solvers and model checkers.</p>
 
-<p><em>Each of the texts is literally a Coq script</em> This follows the trend of other formal softwares such as Mathematica, Maxima or Sage</p>
+<p>Beside Coq, other interactive proof assistants include Isabelle, Twelf, ACL2 and PVS.</p>
 
-<p><strong>Quest idea</strong>: Create a nice Coq document about something.</p>
-
-<p>Building reliable software is really hard. Formal mathematical techniques can help in specifying and reasoning about the properties of software and producing software which has the guarantees of having some stated properties.</p>
-
-<p>Logic is at the core of mathematics and computer science. There are actually a large number of different logics, and the paragraph does not mention which particular logic is being talked about.</p>
-
-<p>Automated theorem provers can state whether some mathematical statements are true or false automatically. Such tools include SAT solvers, SMT solvers and model checkers.</p>
-
-<p><strong>Quest idea</strong>: Experiment with a SAT solver.</p>
-
-<p><strong>Quest idea</strong>: Experiment with an SMT solver.</p>
-
-<p><strong>Quest idea</strong>: Experiment with a model checker.</p>
-
-<p>Proof assistants are interactive, and include Isabelle, Twelf, ACL2, PVS, and Coq, of course.</p>
-
-<p><strong>Quest idea</strong>: Experiment with Isabelle</p>
-
-<p><strong>Quest idea</strong>: Experiment with Twelf</p>
-
-<p><strong>Quest idea</strong>: Experiment with ACL2</p>
-
-<p><strong>Quest idea</strong>: Experiment with PVS</p>
-
-<p>Coq is an interactive development environment for machine-checked formal reasoning which includes</p>
+<p>The coq system includes:</p>
 <ul>
   <li>a proof-checker</li>
   <li>a large library of common definitions and lemmas</li>
   <li>tactics for constructing complex proofs semi-automatically</li>
-  <li>a special-purpose programming language for defining new tactics</li>
+  <li>a special-purpose programming language for defining new tactics called LTac</li>
 </ul>
-
-<p><strong>Quest idea</strong>: Define a custom tactic in Coq and use it.</p>
 
 <p>Coq has been used to</p>
 <ul>
@@ -202,12 +176,6 @@
   <li>Formal specifications of the x86 and LLVM instruction sets</li>
   <li>Formal specifications of the C programming languages and others.</li>
 </ul>
-
-<p><strong>Quest idea</strong>: Investigate JavaCard.</p>
-
-<p><strong>Quest idea</strong>: Investigate LLVM.</p>
-
-<p><strong>Quest idea</strong>: Investigate the formal specification of some programming language.</p>
 
 <p>Coq has been used to build:</p>
 <ul>
@@ -218,207 +186,66 @@
   <li>verified implementations of the open-source RISC-V processor</li>
 </ul>
 
-<p><strong>Quest idea</strong>: Investigate CompCert</p>
-
-<p><strong>Quest idea</strong>: Investigate CertiKos</p>
-
-<p><strong>Quest idea</strong>: Investigate CertiCrypt</p>
-
 <p>The Ynot system embeds “relational Hoare reasoning” in Coq.</p>
-
-<p><strong>Quest idea</strong>: Investigate Ynot</p>
 
 <p>Coq has been used to develop the first formally verified proof of the 4-color theorem.</p>
 
 <p>Coq has been used to formalize a proof the Feit-Thompson Theorem, which is the first major step in the classification of finite simple groups.</p>
 
-<p><strong>Quest idea</strong>: Investigate the Feit-Thompson Theorem</p>
+<p>Beside coq, other functional programming languages include Haskell, OCaml, Standard ML, F#, Scala, Scheme, Racket, Common Lisp, Clojure and Erlang.</p>
 
-<p>Functional programming languages include Haskell, OCaml, Standard ML, F#, Scala, Scheme, Racket, Common Lisp, Clojure, Erlang, and Coq.</p>
+<p>Functional programming is well-suited to formal methods, because pure functions have no side effects, which make them easier to reason with and parallelize.</p>
 
-<p><strong>Quest idea</strong>: Do something in Haskell</p>
-
-<p><strong>Quest idea</strong>: Do something in Ocaml</p>
-
-<p><strong>Quest idea</strong>: Do something in Standard ML</p>
-
-<p><strong>Quest idea</strong>: Do something in F#</p>
-
-<p><strong>Quest idea</strong>: Do something in Scala</p>
-
-<p><strong>Quest idea</strong>: Do something in Racket</p>
-
-<p><strong>Quest idea</strong>: Do something in Common Lisp</p>
-
-<p><strong>Quest idea</strong>: Do something in Clojure</p>
-
-<p><strong>Quest idea</strong>: Do something in Erlang</p>
-
-<p><strong>Quest idea</strong>: Write about <script type="math/tex">\lambda</script>-calculus</p>
-
-<p>Functional programming is about pure functions which have no side effects, which is easier to reason about and parallelize.</p>
-
-<p><strong>Quest idea</strong>: Write about the Map-Reduce idiom in Hadoop</p>
-
-<p>Functional programming lends itself very well as a bridge between logig and computer science.</p>
-
-<p>Coq is actually a functional programming language.</p>
-
-<p>Two Coq IDEs are Proof General for emacs and CoqIDE.</p>
-
-<p><strong>Quest idea</strong>: Experiment with emacs, before experimenting with Proog General</p>
-
-<p>Too bad, solutions to exercises are not supposed to be shared.</p>
+<p>Two Coq IDEs are Proof General for Emacs and CoqIDE.</p>
 
 <h2 id="v1-basics">V1 Basics</h2>
 
-<p>Because they do not have side effect, functional procedures are regarded as concrete methods of computing mathematical functions.</p>
+<p>In this part, the reader will learn about:</p>
+<ul>
+  <li>Coq’s functional programming language is called Gallina.</li>
+  <li>basic data types such as booleans, integers and strings are defined in Gallina and are parts of Coq’s standard library.</li>
+  <li>simple <code class="highlighter-rouge">Inductive</code> types</li>
+  <li>inductive type with constructors that have arguments</li>
+  <li>how to use <code class="highlighter-rouge">Definition</code> and pattern matching to define functions on inductive types and inductyve type with constructors that have arguments</li>
+  <li>the <code class="highlighter-rouge">_</code> placeholder to avoid introducing too many names</li>
+  <li>how to use <code class="highlighter-rouge">Compute</code> to perform evaluation by simplification</li>
+  <li>how to use <code class="highlighter-rouge">Example</code> for defining unit tests and proving them beginning with <code class="highlighter-rouge">Proof</code> and terminating with <code class="highlighter-rouge">Qed</code>.</li>
+  <li>how to use <code class="highlighter-rouge">Admitted</code> to leave things unproven.</li>
+  <li>how to use <code class="highlighter-rouge">Check</code> to investigate the type of things.</li>
+</ul>
 
-<p>In functional programming, functions are treated as “first-class” values, which can be returned by functions and passed around.</p>
+<p>The reader will meet:</p>
+<ul>
+  <li>the <code class="highlighter-rouge">simpl</code> tactic for simplification</li>
+  <li>the <code class="highlighter-rouge">reflexivity</code> tactic for equalities</li>
+  <li><code class="highlighter-rouge">Type</code></li>
+  <li>the <code class="highlighter-rouge">Module</code> and <code class="highlighter-rouge">End</code> commands for defining modules</li>
+</ul>
 
-<p>Functional languages include algebraic data types and feature pattern matching and polymorphic type systems.</p>
+<p>Things that will be alluded to include:</p>
+<ul>
+  <li>the possibility of extracting a function to OCaml, Haskell, or Scheme</li>
+</ul>
 
-<p>Coq’s functional programming language is called Gallina.</p>
+<p>The <code class="highlighter-rouge">bool</code>, <code class="highlighter-rouge">true</code>, <code class="highlighter-rouge">false</code>, negation <code class="highlighter-rouge">negb</code>, conjunction <code class="highlighter-rouge">andb</code>, disjunction <code class="highlighter-rouge">orb</code> from the Coq library will be redefined.</p>
 
-<p>Basic data types such as booleans, integers and strings are defined in Gallina and are parts of Coq’s standard library.</p>
+<p>The book make heavy usages of the <code class="highlighter-rouge">Notation</code> command, which is can be quite cryptic for beginners.</p>
 
-<p>Here’s an enumeration defined as an inductive type.</p>
+<p>The natural integers <code class="highlighter-rouge">nat</code> and their constructors <code class="highlighter-rouge">O</code> and <code class="highlighter-rouge">S</code> will be redefined.</p>
 
-<figure class="highlight"><pre><code class="language-text" data-lang="text">Inductive answer : Type :=
-| yes : answer
-| no : answer 
-| unknown : answer.</code></pre></figure>
+<p>A predecessor function which illustrates pattern matching on integers will be introduced.</p>
 
-<p>Here’s a function which toggles the answer.</p>
+<p>A more elaborate function which returns a number minus 2 will be introduced.</p>
 
-<figure class="highlight"><pre><code class="language-text" data-lang="text">Definition toggle_answer (a:answer) : answer := match a with
-| yes =&gt; no
-| no =&gt; yes
-| unknown =&gt; unknown
-end.</code></pre></figure>
+<p>A recursive function which tests for evenness will be introduced, using the <code class="highlighter-rouge">Fixpoint</code> command.</p>
 
-<p>Here’s how to call the function:</p>
+<p>Addition, multiplication, subtraction and exponentiation will be redefined with recursive functions.</p>
 
-<figure class="highlight"><pre><code class="language-text" data-lang="text">Compute (toggle_answer yes).
-Compute (toggle_answer (toggle_answer yes)).</code></pre></figure>
-
-<p>Note: In CoqIDE, “query” commands should not be run from the CoqIDE buffer, because it is supposed to be a file and therefore not interactive. You’ll get the following warning:</p>
-
-<figure class="highlight"><pre><code class="language-text" data-lang="text">Query commands should not be inserted in scripts</code></pre></figure>
-
-<p>Intstead, hit F1, then replace “Search” with a blank and use the input to run the query commands.</p>
-
-<p>Here’s how to record a kind of unit test.</p>
-
-<figure class="highlight"><pre><code class="language-text" data-lang="text">Example test_yes_no: (toggle_answer yes) = no.
-Proof.
-simpl.
-reflexivity.
-Qed.</code></pre></figure>
-
-<p>If you trust the OCaml, Haskell or Scheme compilers and Coq’s extraction facility, the function toggle_answer can be extracted into a program in one of these languages.</p>
-
-<p><strong>Quest idea</strong>: Extract a program into an OCaml library and make use of it in an OCaml program.</p>
-
-<p><strong>Quest idea</strong>: Extract a program into a Haskell library and make use of it in a Haskell program.</p>
-
-<p><strong>Quest idea</strong>: Extract a program into a Scheme library and make use of it in a Scheme program.</p>
-
-<p>Coq’s library define the <code class="highlighter-rouge">bool</code> type with values <code class="highlighter-rouge">true</code> and <code class="highlighter-rouge">false</code>, and  the functions <code class="highlighter-rouge">negb</code>, <code class="highlighter-rouge">andb</code>, <code class="highlighter-rouge">orb</code> for negation, conjonction and disjunction. Notations <code class="highlighter-rouge">||</code> and <code class="highlighter-rouge">&amp;&amp;</code> are also defined.</p>
-
-<p>Example:</p>
-
-<figure class="highlight"><pre><code class="language-text" data-lang="text">Compute (andb true false).</code></pre></figure>
-
-<p>The <code class="highlighter-rouge">Admitted</code> command is used to skip proofs, and can also be used to define functions without specifying their body.</p>
-
-<p>When using <code class="highlighter-rouge">Compute</code> with functions which are not defined, they are left unevaluated.</p>
-
-<p>Use <code class="highlighter-rouge">Check</code> to check the type of an expression.</p>
-
-<figure class="highlight"><pre><code class="language-text" data-lang="text">Check toggle_answer.
-Check (toggle_answer yes).</code></pre></figure>
-
-<p>Inductive types can be parametrized, which each item parametrized differently.</p>
-
-<p>Here’s an ugly way of fusing booleans and answers in one type, which features pattern matching  with anonymous variables.</p>
-
-<p>Inductive types are defined by constructor expressions, which have a type of a function into the inductive type being defined, and no body.</p>
-
-<figure class="highlight"><pre><code class="language-text" data-lang="text">Inductive answer_bool : Type :=
-  | ab_answer : answer -&gt; answer_bool
-  | ab_bool : bool -&gt; answer_bool.
-
-Definition answer_bool_positive (x : answer_bool) : bool :=
-  match x with
-  | ab_answer yes =&gt; true
-  | ab_answer _ =&gt; false
-  | ab_bool true =&gt; true
-  | ab_bool _ =&gt; false
-  end.
-
-Example answer_bool_positive_true_true:
-  (answer_bool_positive (ab_bool true)) = true.
-Proof.  simpl.  reflexivity.  Qed.</code></pre></figure>
-
-<p>The commands <code class="highlighter-rouge">Module X</code> and <code class="highlighter-rouge">End</code> define a module. A variable <code class="highlighter-rouge">x</code> define in the module can be reffered to outside of the module as <code class="highlighter-rouge">X.x</code>.</p>
-
-<p>Natural integers <code class="highlighter-rouge">nat</code> are defined inductively as the <code class="highlighter-rouge">O</code> constant denonting zero, and the successor <code class="highlighter-rouge">S</code> denoting addition of 1.</p>
-
-<p>Coq automatically replaces <code class="highlighter-rouge">S</code> and <code class="highlighter-rouge">0</code> by the corresponding numbers, both for display and in the input.</p>
-
-<p>Therefore, the following displays as <code class="highlighter-rouge">4</code>:</p>
-
-<figure class="highlight"><pre><code class="language-text" data-lang="text">Compute (S (S 2))</code></pre></figure>
-
-<p>Here’s something that acts as the predecessor function:</p>
-
-<figure class="highlight"><pre><code class="language-text" data-lang="text">Definition previous (n : nat) : nat :=
-match n  with
-| O =&gt; O
-| S p =&gt; p
-end.</code></pre></figure>
-
-<p><strong>Quest idea</strong>: Write and understand about CoqIde display options for implicit arguments, coercions, raw matching expressions, notations, all basic low-level contents, existential variable instances, universe levels, and all low-level contents.</p>
-
-<p>Recursive functions can be defined with <code class="highlighter-rouge">Fixpoint</code>Fixpoint evenb (n:nat) : bool :=</p>
-
-<figure class="highlight"><pre><code class="language-text" data-lang="text">match n with
-| 0 =&gt; true
-| S 0 =&gt; false
-| S (S p) =&gt; evenb p
-end.</code></pre></figure>
-
-<p><strong>Quest idea</strong>: Explain what Coq’s <code class="highlighter-rouge">Fixpoint</code> and recursion has to do with the Y combinator from <script type="math/tex">\lambda</script> calculus.</p>
-
-<p><strong>Quest idea</strong>: Find out what tactics such as <code class="highlighter-rouge">simpl</code> and <code class="highlighter-rouge">reflexivity</code> exactly do.</p>
-
-<p>When several arguments have same type, they can be grouped together. <code class="highlighter-rouge">Definition f (n : nat) (m : nat)</code> is equivalent to <code class="highlighter-rouge">Definition f (n m : nat)</code></p>
-
-<p>To pattern match on multiple argument, separate the patterns with commas. Example:</p>
-
-<figure class="highlight"><pre><code class="language-text" data-lang="text">Fixpoint minus (n m : nat) : nat :=
-match n, m with
-| O , _ =&gt; O
-| S _ , O =&gt; n
-| S n', S m' =&gt; minus n' m'
-end.</code></pre></figure>
-
-<p>Here’s how to introduce the notation for <code class="highlighter-rouge">+</code>:</p>
-
-<figure class="highlight"><pre><code class="language-text" data-lang="text">Notation "x+y" := (plus x y) (at level 50, left associativity) : nat_scope.</code></pre></figure>
-
-<p><strong>Quest idea</strong>: Find all about this notation thing.</p>
-
-<p>Equality testing of natural integers is defined by nested pattern matching on both arguments.</p>
-
-<p><code class="highlighter-rouge">reflexivity</code> performs some forms of simplication automatically.</p>
+<p>The reader will learn that arguments of a same type can be grouped together, i.e. the type of the arguments need only be declared once.</p>
 
 <p><code class="highlighter-rouge">reflexivity</code> does more than <code class="highlighter-rouge">simpl</code> because it expands the terms in a such a way that would leave the expression tree difficult to use, while <code class="highlighter-rouge">simpl</code> leaves things cleaner.</p>
 
-<p>In Coq, <code class="highlighter-rouge">Theorem</code>, <code class="highlighter-rouge">Example</code>, <code class="highlighter-rouge">Lemma</code>, <code class="highlighter-rouge">Fact</code>, and <code class="highlighter-rouge">Remark</code> are synonymous.</p>
-
-<p><strong>Quest idea</strong>: Find whether <code class="highlighter-rouge">intros</code>, <code class="highlighter-rouge">simpl</code> and <code class="highlighter-rouge">reflexivity</code> are primitive or defined with Coq’s tactic definition language.</p>
+<p><code class="highlighter-rouge">Theorem</code>, <code class="highlighter-rouge">Example</code>, <code class="highlighter-rouge">Lemma</code>, <code class="highlighter-rouge">Fact</code>, and <code class="highlighter-rouge">Remark</code> are internally synonymous.</p>
 
 <p>Here’s something interesting.</p>
 
@@ -439,22 +266,9 @@ reflexivity.</code></pre></figure>
 
 <p>Note on <code class="highlighter-rouge">rewrite</code>: the arrow points to which side of the equality wins.</p>
 
-<p><strong>Quest idea</strong>: Find out more about how <code class="highlighter-rouge">rewrite</code> works, i.e. why in the following, it ends with <code class="highlighter-rouge">(0 + n) * m = 0 + n * m</code> and not something else, since there are multiple possibilities.</p>
+<p>To perform case analysis on inductive types, use <code class="highlighter-rouge">destruct</code>.</p>
 
-<figure class="highlight"><pre><code class="language-text" data-lang="text">Theorem plus_O_n : forall n : nat, 0 + n = n.
-Proof.
-  intros n. simpl. reflexivity. Qed.
-
-Theorem mult_0_plus : forall n m : nat,
-  (0 + n) * m = n * m.
-Proof.
-  intros n m.
-  rewrite &lt;- plus_O_n.
-  reflexivity. Qed.</code></pre></figure>
-
-<p>To perform case analysis, use <code class="highlighter-rouge">destruct</code>.</p>
-
-<p>Do make proof readables, use bullets such as <code class="highlighter-rouge">-</code>, <code class="highlighter-rouge">+</code>, <code class="highlighter-rouge">*</code> and braces <code class="highlighter-rouge">{...}</code>.</p>
+<p>To make proof readables, use bullets such as <code class="highlighter-rouge">-</code>, <code class="highlighter-rouge">+</code>, <code class="highlighter-rouge">*</code> and braces <code class="highlighter-rouge">{...}</code>.</p>
 
 <h2 id="v1-proof-by-induction">V1 Proof by Induction</h2>
 
@@ -466,23 +280,19 @@ Proof.
 
 <figure class="highlight"><pre><code class="language-text" data-lang="text">coqc Y.v</code></pre></figure>
 
-<p><em>Proof by induction</em></p>
+<p>When simplification + reflexivity does not work, try case analysis (<code class="highlighter-rouge">destruct</code>).</p>
 
-<p>When simplification + reflexivity does not work, try case analysis.</p>
-
-<p>When case analysis does not work, try proof by induction.</p>
-
-<p>The <code class="highlighter-rouge">induction</code> tactic generates a case with the induction hypothesis, which can usually be used later with the <code class="highlighter-rouge">rewrite</code> tactic.</p>
-
-<p><em>Proofs within proofs</em></p>
+<p>When case analysis does not work, try proof by induction (<code class="highlighter-rouge">induction</code>).</p>
 
 <p><code class="highlighter-rouge">assert</code> can be use to prove things using the variables of the main proof. <code class="highlighter-rouge">assert</code> is useful because it is closure-aware.</p>
 
-<p><em>Formal vs. informal proof</em></p>
-
-<p>Coq proofs do not show the intermediate proof states, which make them difficult to follow.</p>
-
 <h2 id="v1-working-with-structured-data">V1 Working with Structured Data</h2>
+
+<hr />
+
+<p>Stopped here.</p>
+
+<hr />
 
 <p><em>Pairs of numbers</em></p>
 
