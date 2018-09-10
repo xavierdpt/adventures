@@ -579,10 +579,94 @@ The proposition which states that some element is in a list is a recursive propo
 
 Another possibility is to define proposition inductively.
 
+## V1 The Curry Howard Correspondance
+
+A proof is a program that proves a given type exists.
+
+A program is a proof that something of the type of the program exists.
+
+When doing proofs, the focus is on the type, and the exact evidence supplied to prove the type does not really matter.
+
+When writing programs, the focus is on the evidence, and the type of it does not really matter.
+
+For instance, when proving that a function from nat to nat exists `nat -> nat`, any function will do, but we are usually interested in particular functions from nat to nat, and on their properties.
+
+**Quest Idea**: What would it mean to think about the properties of a proof of something ? Is to possible to make two different proofs, and prove that one of the proof has a property that the other has not ?
+
+Proofs are programs that manipulate evidence. 
+
+It's possible to write proof objects directly, without a proof script.
+
+Here's an example:
+{% highlight text %}
+Definition HYP (P Q : Prop) : Prop := (P->Q) /\ P.
+
+Definition THM := forall (P Q : Prop), (HYP P Q) -> Q.
+
+Theorem thm_proof : THM.
+intros p q.
+intro conj.
+destruct conj as [imp pp].
+apply imp.
+apply pp.
+Qed.
+
+Definition hypfun P Q : Prop hyp : HYP P Q : Q :=
+match hyp with
+| conj imp pp => imp pp
+end.
+
+Definition thmfun : THM := hypfun
+{% endhighlight %}
+
+In this example, we first define the hypothesis `HYP` and the theorem's assertion `THM`, which asserts that `Q` can be derived from the hypothesis. Then we prove the theorem.
+
+What follows is an attempt to rewrite nicely the output of `Print thm_proof`.
+
+The function `hypfun` produces `Q` from the hypothesis. It simply pattern match on the conjunction to extract both sides, and apply the left side to the right side. Since the right side is something of type `P`, and the left side produces something of type `Q` from something of type `P`, the result is what is produced by the right side, which is of type `Q`.
+
+Then `thmfun` simply uses `hypfun`.
+
+This shows that using destruct is equilalent to pattern matching, and apply hypothesese is equivalent to applying functions.
+
+*Proof Scripts*
+
+The command `Show Proof.` can show the proof script in the middle of the proof process.
+
+*Programming with tactics*
+
+Here are three functions on natural defined with tactics. One is the identity, the other is the constant 0, and the third is the successor function.
 
 
+{% highlight text %}
+Definition identity_nat : nat -> nat.
+intro n.
+apply n.
+Qed.
 
+Definition zero_nat : nat -> nat.
+intro n.
+apply O.
+Qed.
 
+Definition successor_nat : nat -> nat.
+intro n.
+apply S.
+apply n.
+Qed.
+
+Print identity_nat.
+Print zero_nat.
+Print successor_nat.
+{% endhighlight %}
+
+**Quest Idea**: Describe tactics by their proof script.
+
+## V1 Induction Principles
+
+Every recursive type comes with a `_ind` and `_rect`
+
+{% include SFV1Imp.markdown %}
 
 [Coq]: https://coq.inria.fr/
 [documentation]: https://coq.inria.fr/documentation

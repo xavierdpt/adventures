@@ -9,15 +9,15 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Coq is a formal proof and verification system, which allow to proof mathematical statements and certify programs against a specification." />
 <meta property="og:description" content="Coq is a formal proof and verification system, which allow to proof mathematical statements and certify programs against a specification." />
-<link rel="canonical" href="http://localhost:4000/adventures/something/2018/09/07/adventures_in_coq.html" />
-<meta property="og:url" content="http://localhost:4000/adventures/something/2018/09/07/adventures_in_coq.html" />
+<link rel="canonical" href="https://xavierdpt.github.io/adventures/something/2018/09/07/adventures_in_coq.html" />
+<meta property="og:url" content="https://xavierdpt.github.io/adventures/something/2018/09/07/adventures_in_coq.html" />
 <meta property="og:site_name" content="Adventures" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2018-09-07T08:00:00+02:00" />
 <script type="application/ld+json">
-{"@type":"BlogPosting","url":"http://localhost:4000/adventures/something/2018/09/07/adventures_in_coq.html","headline":"Adventures in Coq","dateModified":"2018-09-07T08:00:00+02:00","datePublished":"2018-09-07T08:00:00+02:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/adventures/something/2018/09/07/adventures_in_coq.html"},"description":"Coq is a formal proof and verification system, which allow to proof mathematical statements and certify programs against a specification.","@context":"http://schema.org"}</script>
+{"@type":"BlogPosting","url":"https://xavierdpt.github.io/adventures/something/2018/09/07/adventures_in_coq.html","headline":"Adventures in Coq","dateModified":"2018-09-07T08:00:00+02:00","datePublished":"2018-09-07T08:00:00+02:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://xavierdpt.github.io/adventures/something/2018/09/07/adventures_in_coq.html"},"description":"Coq is a formal proof and verification system, which allow to proof mathematical statements and certify programs against a specification.","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/adventures/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/adventures/feed.xml" title="Adventures" /></head>
+<link rel="stylesheet" href="/adventures/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://xavierdpt.github.io/adventures/feed.xml" title="Adventures" /></head>
 <body><header class="site-header" role="banner">
 
   <div class="wrapper"><a class="site-title" rel="author" href="/adventures/">Adventures</a><nav class="site-nav">
@@ -603,6 +603,111 @@ Arguments repeat {X} x count.</code></pre></figure>
 <p>The proposition which states that some element is in a list is a recursive proposition which can be defined with <code class="highlighter-rouge">Fixpoint</code> and pattern matching.</p>
 
 <p>Another possibility is to define proposition inductively.</p>
+
+<h2 id="v1-the-curry-howard-correspondance">V1 The Curry Howard Correspondance</h2>
+
+<p>A proof is a program that proves a given type exists.</p>
+
+<p>A program is a proof that something of the type of the program exists.</p>
+
+<p>When doing proofs, the focus is on the type, and the exact evidence supplied to prove the type does not really matter.</p>
+
+<p>When writing programs, the focus is on the evidence, and the type of it does not really matter.</p>
+
+<p>For instance, when proving that a function from nat to nat exists <code class="highlighter-rouge">nat -&gt; nat</code>, any function will do, but we are usually interested in particular functions from nat to nat, and on their properties.</p>
+
+<p><strong>Quest Idea</strong>: What would it mean to think about the properties of a proof of something ? Is to possible to make two different proofs, and prove that one of the proof has a property that the other has not ?</p>
+
+<p>Proofs are programs that manipulate evidence.</p>
+
+<p>It’s possible to write proof objects directly, without a proof script.</p>
+
+<p>Here’s an example:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Definition HYP (P Q : Prop) : Prop := (P-&gt;Q) /\ P.
+
+Definition THM := forall (P Q : Prop), (HYP P Q) -&gt; Q.
+
+Theorem thm_proof : THM.
+intros p q.
+intro conj.
+destruct conj as [imp pp].
+apply imp.
+apply pp.
+Qed.
+
+Definition hypfun P Q : Prop hyp : HYP P Q : Q :=
+match hyp with
+| conj imp pp =&gt; imp pp
+end.
+
+Definition thmfun : THM := hypfun</code></pre></figure>
+
+<p>In this example, we first define the hypothesis <code class="highlighter-rouge">HYP</code> and the theorem’s assertion <code class="highlighter-rouge">THM</code>, which asserts that <code class="highlighter-rouge">Q</code> can be derived from the hypothesis. Then we prove the theorem.</p>
+
+<p>What follows is an attempt to rewrite nicely the output of <code class="highlighter-rouge">Print thm_proof</code>.</p>
+
+<p>The function <code class="highlighter-rouge">hypfun</code> produces <code class="highlighter-rouge">Q</code> from the hypothesis. It simply pattern match on the conjunction to extract both sides, and apply the left side to the right side. Since the right side is something of type <code class="highlighter-rouge">P</code>, and the left side produces something of type <code class="highlighter-rouge">Q</code> from something of type <code class="highlighter-rouge">P</code>, the result is what is produced by the right side, which is of type <code class="highlighter-rouge">Q</code>.</p>
+
+<p>Then <code class="highlighter-rouge">thmfun</code> simply uses <code class="highlighter-rouge">hypfun</code>.</p>
+
+<p>This shows that using destruct is equilalent to pattern matching, and apply hypothesese is equivalent to applying functions.</p>
+
+<p><em>Proof Scripts</em></p>
+
+<p>The command <code class="highlighter-rouge">Show Proof.</code> can show the proof script in the middle of the proof process.</p>
+
+<p><em>Programming with tactics</em></p>
+
+<p>Here are three functions on natural defined with tactics. One is the identity, the other is the constant 0, and the third is the successor function.</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Definition identity_nat : nat -&gt; nat.
+intro n.
+apply n.
+Qed.
+
+Definition zero_nat : nat -&gt; nat.
+intro n.
+apply O.
+Qed.
+
+Definition successor_nat : nat -&gt; nat.
+intro n.
+apply S.
+apply n.
+Qed.
+
+Print identity_nat.
+Print zero_nat.
+Print successor_nat.</code></pre></figure>
+
+<p><strong>Quest Idea</strong>: Describe tactics by their proof script.</p>
+
+<h2 id="v1-induction-principles">V1 Induction Principles</h2>
+
+<p>Every recursive type comes with a <code class="highlighter-rouge">_ind</code> and <code class="highlighter-rouge">_rect</code></p>
+
+<h2 id="v1-simple-imperative-programs">V1 Simple Imperative Programs</h2>
+
+<p>Tacticals <code class="highlighter-rouge">try</code>, <code class="highlighter-rouge">;</code> (simple and general form), <code class="highlighter-rouge">repeat</code></p>
+
+<p><code class="highlighter-rouge">Tactic Notation</code>, LTac primitives, OCaml API</p>
+
+<p><code class="highlighter-rouge">omega</code> with <code class="highlighter-rouge">Require Import Coq.omega.Omega</code></p>
+
+<p><code class="highlighter-rouge">clear</code>, <code class="highlighter-rouge">subst</code>, <code class="highlighter-rouge">rename</code>, <code class="highlighter-rouge">assumption</code>, <code class="highlighter-rouge">contradiction</code>, <code class="highlighter-rouge">constructor</code></p>
+
+<p><code class="highlighter-rouge">Reserved Notation</code></p>
+
+<p>In large Coq developments it is common to see a definition given in both functional and relational styles, plus a lemma stating that the two coincide, allowing further proofs to switch from one point of view to the other at will.</p>
+
+<p><strong>Quest Idea</strong>: Change the point of view in some “large” development.</p>
+
+<p><code class="highlighter-rouge">Coercion</code>, <code class="highlighter-rouge">Bind Scope</code>, <code class="highlighter-rouge">Infix</code>, <code class="highlighter-rouge">Open Scope</code></p>
+
+<p>The imperative language being defined allow infinite loops, but Coq does not allow potentially infinite recursions.</p>
+
+<p>To solve this, evaluation must be defined as a relation. Then every programs must be proven to evaluate to the corresponding results, infinite recursions will correspond to  infinite proofs, but all attempts at finite computations are on the user’s shoulder, i.e. Coq itself will never attempt to perform a computation that may be infinite.</p>
 
 
   </div><a class="u-url" href="/adventures/something/2018/09/07/adventures_in_coq.html" hidden></a>
