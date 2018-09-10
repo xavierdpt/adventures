@@ -11,6 +11,18 @@ The [documentation section][documentation] has a link to [Software Foundations][
 
 The topic of this adventure is to explore this work.
 
+Reproducing selected parts of the work offers little value. We also do not give any solution to the exercises. Instead, we try to address the needs of the following kind of readers.
+
+* Readers who started reading and left in the middle a quite long time ago. These readers want to have their memory refreshed.
+* Readers who already know about Coq. These readers want to know what they will find without spending hours sifting through the tedious parts.
+
+Other goals are the following:
+* Summarize all the coq features introduced in the course, and say whether they are explained in detail or merely alluded too.
+* Summarize the core ideas.
+* Introduce some personal derived work inspired from the course.
+
+## Complete outline
+
 Here's the complete outline of the whole thing.
 
 * Volume 1: Logical Foundations
@@ -81,6 +93,8 @@ Here's the complete outline of the whole thing.
 	* QuickChick Reference Manual
 	* PostScript
 	* Bibliography
+
+{% include SFV1Preface.markdown %}
 
 ## V1 Preface
 

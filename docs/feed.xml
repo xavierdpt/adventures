@@ -1,8 +1,24 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="https://xavierdpt.github.io/adventures/feed.xml" rel="self" type="application/atom+xml" /><link href="https://xavierdpt.github.io/adventures/" rel="alternate" type="text/html" /><updated>2018-09-10T15:58:13+02:00</updated><id>https://xavierdpt.github.io/adventures/</id><title type="html">Adventures</title><subtitle>Tales of a knowledge traveller.</subtitle><entry><title type="html">Adventures in Coq</title><link href="https://xavierdpt.github.io/adventures/something/2018/09/07/adventures_in_coq.html" rel="alternate" type="text/html" title="Adventures in Coq" /><published>2018-09-07T08:00:00+02:00</published><updated>2018-09-07T08:00:00+02:00</updated><id>https://xavierdpt.github.io/adventures/something/2018/09/07/adventures_in_coq</id><content type="html" xml:base="https://xavierdpt.github.io/adventures/something/2018/09/07/adventures_in_coq.html">&lt;p&gt;&lt;a href=&quot;https://coq.inria.fr/&quot;&gt;Coq&lt;/a&gt; is a formal proof and verification system, which allow to proof mathematical statements and certify programs against a specification.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="http://localhost:4000/adventures/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/adventures/" rel="alternate" type="text/html" /><updated>2018-09-10T17:21:41+02:00</updated><id>http://localhost:4000/adventures/</id><title type="html">Adventures</title><subtitle>Tales of a knowledge traveller.</subtitle><entry><title type="html">Adventures in Coq</title><link href="http://localhost:4000/adventures/something/2018/09/07/adventures_in_coq.html" rel="alternate" type="text/html" title="Adventures in Coq" /><published>2018-09-07T08:00:00+02:00</published><updated>2018-09-07T08:00:00+02:00</updated><id>http://localhost:4000/adventures/something/2018/09/07/adventures_in_coq</id><content type="html" xml:base="http://localhost:4000/adventures/something/2018/09/07/adventures_in_coq.html">&lt;p&gt;&lt;a href=&quot;https://coq.inria.fr/&quot;&gt;Coq&lt;/a&gt; is a formal proof and verification system, which allow to proof mathematical statements and certify programs against a specification.&lt;/p&gt;
 
 &lt;p&gt;The &lt;a href=&quot;https://coq.inria.fr/documentation&quot;&gt;documentation section&lt;/a&gt; has a link to &lt;a href=&quot;https://softwarefoundations.cis.upenn.edu/&quot;&gt;Software Foundations&lt;/a&gt;, a 4-Volumes work about functional programming, theorem proving, operational semantics, Hoare logic, type systems, specification and verification.&lt;/p&gt;
 
 &lt;p&gt;The topic of this adventure is to explore this work.&lt;/p&gt;
+
+&lt;p&gt;Reproducing selected parts of the work offers little value. We also do not give any solution to the exercises. Instead, we try to address the needs of the following kind of readers.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Readers who started reading and left in the middle a quite long time ago. These readers want to have their memory refreshed.&lt;/li&gt;
+  &lt;li&gt;Readers who already know about Coq. These readers want to know what they will find without spending hours sifting through the tedious parts.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Other goals are the following:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Summarize all the coq features introduced in the course, and say whether they are explained in detail or merely alluded too.&lt;/li&gt;
+  &lt;li&gt;Summarize the core ideas.&lt;/li&gt;
+  &lt;li&gt;Introduce some personal derived work inspired from the course.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;complete-outline&quot;&gt;Complete outline&lt;/h2&gt;
 
 &lt;p&gt;Here’s the complete outline of the whole thing.&lt;/p&gt;
 
@@ -88,6 +104,12 @@
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;h2 id=&quot;volume-1--preface&quot;&gt;Volume 1 : Preface&lt;/h2&gt;
+
+&lt;p&gt;Like other formal softwares such as Mathematica, Maxima or Sage, Coq features the ability of converting the raw Coq scripts into nice documentation artefacts.&lt;/p&gt;
+
+&lt;p&gt;We provide a minimalist example of how to do that in &lt;a href=&quot;https://github.com/xavierdpt/adventures/tree/master/trove/SF1Preface/nice&quot;&gt;the trove&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h2 id=&quot;v1-preface&quot;&gt;V1 Preface&lt;/h2&gt;
 
