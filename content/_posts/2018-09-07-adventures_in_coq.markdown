@@ -351,6 +351,32 @@ Every recursive type comes with a `_ind` and `_rect`
 
 {% include SFV1Imp.markdown %}
 
+{% include SFV2Preface.markdown %}
+
+{% include SFV2Equiv.markdown %}
+
+{% include SFV2Hoare.markdown %}
+
+{% include SFV2Hoare2.markdown %}
+
+{% include SFV2HoareAsLogic.markdown %}
+
+{% include SFV2Smallstep.markdown %}
+
+{% include SFV2Types.markdown %}
+
+{% include SFV2Stlc.markdown %}
+
+{% include SFV2StlcProp.markdown %}
+
+{% include SFV2MoreStlc.markdown %}
+
+{% include SFV2Sub.markdown %}
+
+{% include SFV2Typechecking.markdown %}
+
+Todo : Records, References, RecordSub, Norm, LibTactics, UseTactics, UseAuto, PE
+
 [Coq]: https://coq.inria.fr/
 [documentation]: https://coq.inria.fr/documentation
 [sf]: https://softwarefoundations.cis.upenn.edu/

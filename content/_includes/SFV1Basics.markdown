@@ -79,4 +79,6 @@ Open quests:
 * Explain what Coq's `Fixpoint` and recursion has to do with the Y combinator from lambda-calculus.
 * Find out what the standard tactics exactly do.
 * Find all about this notation thing.
+
+* Understand eq_ind_r
 {% endcomment %}

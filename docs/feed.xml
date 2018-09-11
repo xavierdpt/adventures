@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="https://xavierdpt.github.io/adventures/feed.xml" rel="self" type="application/atom+xml" /><link href="https://xavierdpt.github.io/adventures/" rel="alternate" type="text/html" /><updated>2018-09-10T18:11:51+02:00</updated><id>https://xavierdpt.github.io/adventures/</id><title type="html">Adventures</title><subtitle>Tales of a knowledge traveller.</subtitle><entry><title type="html">Adventures in Coq</title><link href="https://xavierdpt.github.io/adventures/something/2018/09/07/adventures_in_coq.html" rel="alternate" type="text/html" title="Adventures in Coq" /><published>2018-09-07T08:00:00+02:00</published><updated>2018-09-07T08:00:00+02:00</updated><id>https://xavierdpt.github.io/adventures/something/2018/09/07/adventures_in_coq</id><content type="html" xml:base="https://xavierdpt.github.io/adventures/something/2018/09/07/adventures_in_coq.html">&lt;p&gt;&lt;a href=&quot;https://coq.inria.fr/&quot;&gt;Coq&lt;/a&gt; is a formal proof and verification system, which allow to proof mathematical statements and certify programs against a specification.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="http://localhost:4000/adventures/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/adventures/" rel="alternate" type="text/html" /><updated>2018-09-11T14:29:41+02:00</updated><id>http://localhost:4000/adventures/</id><title type="html">Adventures</title><subtitle>Tales of a knowledge traveller.</subtitle><entry><title type="html">Adventures in Coq</title><link href="http://localhost:4000/adventures/something/2018/09/07/adventures_in_coq.html" rel="alternate" type="text/html" title="Adventures in Coq" /><published>2018-09-07T08:00:00+02:00</published><updated>2018-09-07T08:00:00+02:00</updated><id>http://localhost:4000/adventures/something/2018/09/07/adventures_in_coq</id><content type="html" xml:base="http://localhost:4000/adventures/something/2018/09/07/adventures_in_coq.html">&lt;p&gt;&lt;a href=&quot;https://coq.inria.fr/&quot;&gt;Coq&lt;/a&gt; is a formal proof and verification system, which allow to proof mathematical statements and certify programs against a specification.&lt;/p&gt;
 
 &lt;p&gt;The &lt;a href=&quot;https://coq.inria.fr/documentation&quot;&gt;documentation section&lt;/a&gt; has a link to &lt;a href=&quot;https://softwarefoundations.cis.upenn.edu/&quot;&gt;Software Foundations&lt;/a&gt;, a 4-Volumes work about functional programming, theorem proving, operational semantics, Hoare logic, type systems, specification and verification.&lt;/p&gt;
 
@@ -492,4 +492,181 @@ Print successor_nat.&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;The imperative language being defined allow infinite loops, but Coq does not allow potentially infinite recursions.&lt;/p&gt;
 
-&lt;p&gt;To solve this, evaluation must be defined as a relation. Then every programs must be proven to evaluate to the corresponding results, infinite recursions will correspond to  infinite proofs, but all attempts at finite computations are on the user’s shoulder, i.e. Coq itself will never attempt to perform a computation that may be infinite.&lt;/p&gt;</content><author><name></name></author><summary type="html">Coq is a formal proof and verification system, which allow to proof mathematical statements and certify programs against a specification.</summary></entry></feed>
+&lt;p&gt;To solve this, evaluation must be defined as a relation. Then every programs must be proven to evaluate to the corresponding results, infinite recursions will correspond to  infinite proofs, but all attempts at finite computations are on the user’s shoulder, i.e. Coq itself will never attempt to perform a computation that may be infinite.&lt;/p&gt;
+
+&lt;h2 id=&quot;volume-2--preface&quot;&gt;Volume 2 : Preface&lt;/h2&gt;
+
+&lt;p&gt;Topics : operational semantics, Hoare logic, static type systems&lt;/p&gt;
+
+&lt;p&gt;reasoning about the properties of specific programs&lt;/p&gt;
+
+&lt;p&gt;reasoning about the properties of programming languages&lt;/p&gt;
+
+&lt;p&gt;representing programs as mathematical objects&lt;/p&gt;
+
+&lt;p&gt;abstract syntax&lt;/p&gt;
+
+&lt;p&gt;big-step and small-step styles&lt;/p&gt;
+
+&lt;p&gt;equivalence of programs&lt;/p&gt;
+
+&lt;p&gt;correctness of metaprograms, such as compilers and optimizers&lt;/p&gt;
+
+&lt;p&gt;Hoare triples : pre-condition and post-conditions&lt;/p&gt;
+
+&lt;p&gt;type systems are part of lightweight formal methods = modest power, but efficient, and embeddable in compilers, linkers, analyzers&lt;/p&gt;
+
+&lt;p&gt;model checkers, contract checkers, run-time monitoring techniques&lt;/p&gt;
+
+&lt;p&gt;simply-typed lambda calculus&lt;/p&gt;
+
+&lt;h2 id=&quot;volume-2--program-equivalence&quot;&gt;Volume 2 : Program Equivalence&lt;/h2&gt;
+
+&lt;p&gt;Arithmetic and boolean expressions are equivalence when they evaluate to the same values.&lt;/p&gt;
+
+&lt;p&gt;Two commands are equivalent if one command terminates on some state if and only iff the other does.&lt;/p&gt;
+
+&lt;p&gt;Example: Skipping can be removed.&lt;/p&gt;
+
+&lt;p&gt;Example: Skipping can be added.&lt;/p&gt;
+
+&lt;p&gt;Example: Conditional with &lt;code class=&quot;highlighter-rouge&quot;&gt;true&lt;/code&gt; can be optimized out.&lt;/p&gt;
+
+&lt;p&gt;Example: Conditional which evaluates to &lt;code class=&quot;highlighter-rouge&quot;&gt;true&lt;/code&gt; can be optimized out.&lt;/p&gt;
+
+&lt;p&gt;Example: Conditionals can be swapped when the condition is negated.&lt;/p&gt;
+
+&lt;p&gt;Similar theorems apply to while loops.&lt;/p&gt;
+
+&lt;p&gt;Example : When the guard is equivalent to true, the while loop never terminates.&lt;/p&gt;
+
+&lt;p&gt;Example : Loop unrolling&lt;/p&gt;
+
+&lt;p&gt;The three relations defined (arithmetic, boolean, commands) are equivalence relations.&lt;/p&gt;
+
+&lt;p&gt;Congruences properties must be proved for every constructor (i.e. CIf, CSeq, …)&lt;/p&gt;
+
+&lt;p&gt;Definition of sound program transformation.&lt;/p&gt;
+
+&lt;p&gt;Constant folding is a sound transformation.&lt;/p&gt;
+
+&lt;p&gt;One source of nondeterminism is variables initialized with arbitrary values.&lt;/p&gt;
+
+&lt;h2 id=&quot;volume-2--hoare-logic-part-i&quot;&gt;Volume 2 : Hoare Logic Part I&lt;/h2&gt;
+
+&lt;p&gt;In volume 1, a small programming language was defined, with abstract syntax trees and an evaluation relation which specifies operational semantics.&lt;/p&gt;
+
+&lt;p&gt;Properties which were proven include determinism of evaluation, equivalence of functional and relational definitions of arithmetic expression evaluation, guaranteed termination of some programs, correctness of some program transformations, and behavioral equivalence.&lt;/p&gt;
+
+&lt;p&gt;Goal of this part is to carry some program verification with Floyd-Hoare Logic.&lt;/p&gt;
+
+&lt;p&gt;Floyd-Hoare logic combines a natural way of writing down specifications with a compositional proof technique for proving program correctness.&lt;/p&gt;
+
+&lt;p&gt;Assertions.&lt;/p&gt;
+
+&lt;p&gt;An Hoare triple (Pre-condition ; command ; Post-condition) specifies that when command is called on a state satisfying the precondition and terminates, then it must satisfy the post condition.&lt;/p&gt;
+
+&lt;p&gt;Hoare triples for assignment.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;eapply&lt;/code&gt; tactic applies a theorem and replace all the premises that it failed to unify with existential variables.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;eassumption&lt;/code&gt; works like &lt;code class=&quot;highlighter-rouge&quot;&gt;assumption&lt;/code&gt;, but tries to use existential variables.&lt;/p&gt;
+
+&lt;h2 id=&quot;volume-2--hoare-logic-part-ii&quot;&gt;Volume 2 : Hoare Logic Part II&lt;/h2&gt;
+&lt;p&gt;Once the outermost precondition and postcondition are chosen, the only creative part in verifying programs using Hoare Logic is finding the right loop invariants.&lt;/p&gt;
+
+&lt;p&gt;Weakest preconditions.&lt;/p&gt;
+
+&lt;p&gt;Checking the validity of decorated programs can mostly be automated.&lt;/p&gt;
+
+&lt;p&gt;Decorated commands.&lt;/p&gt;
+
+&lt;p&gt;Extraction function which removes the assertions.&lt;/p&gt;
+
+&lt;p&gt;Annotated program to proof assertion with function that recursively extracts everything to be proved in a big conjunction.&lt;/p&gt;
+
+&lt;p&gt;Custom &lt;code class=&quot;highlighter-rouge&quot;&gt;verify&lt;/code&gt; tactic defined in LTac&lt;/p&gt;
+
+&lt;h2 id=&quot;volume-2--hoare-as-a-logic&quot;&gt;Volume 2 : Hoare as a Logic&lt;/h2&gt;
+
+&lt;p&gt;The presentation of Hoare logic was model-theoretic.&lt;/p&gt;
+
+&lt;p&gt;Another way is to define a set of axioms and inference rules which talk about commands and Hoare triples, but it’s more verbose.&lt;/p&gt;
+
+&lt;h2 id=&quot;volume-2--small-step-operational-semantics&quot;&gt;Volume 2 : Small-Step Operational Semantics&lt;/h2&gt;
+
+&lt;p&gt;What was done was big-step semantics, called natural semantics by Gilles Kahn.&lt;/p&gt;
+
+&lt;p&gt;This style is not very well suited to concurrent programming languages.&lt;/p&gt;
+
+&lt;p&gt;Also, supporting undefined behavior requires using Inductive propositions rather than fixpoints.&lt;/p&gt;
+
+&lt;p&gt;Now, a command may fail for two different reasons : infinite loop or undefined behavior.&lt;/p&gt;
+
+&lt;p&gt;What is desirable is to allow infinite loops but prevent undefined behavior.&lt;/p&gt;
+
+&lt;p&gt;Toy language with only constants and addition, with a big-step style evaluator, defined by a Fixpoint and an Inductive relation.&lt;/p&gt;
+
+&lt;p&gt;Then the small-step evaluation relation is exposed.&lt;/p&gt;
+
+&lt;p&gt;Parenthesis on relations : binary relations, deterministic relation, custom tactic.&lt;/p&gt;
+
+&lt;p&gt;Strong progress, normal forms.&lt;/p&gt;
+
+&lt;p&gt;Multi-step reduction relation.&lt;/p&gt;
+
+&lt;p&gt;Proof that the big step and small step definitions define the same thing.&lt;/p&gt;
+
+&lt;p&gt;Small-step version of the Imp language.&lt;/p&gt;
+
+&lt;p&gt;Additional command in Imp which launches computations in parallel.&lt;/p&gt;
+
+&lt;p&gt;Proof that some example program can terminate with any values.&lt;/p&gt;
+
+&lt;p&gt;Small step stack machine.&lt;/p&gt;
+
+&lt;h2 id=&quot;volume-2--types&quot;&gt;Volume 2 : Types&lt;/h2&gt;
+
+&lt;p&gt;Type preservation and progress&lt;/p&gt;
+
+&lt;p&gt;Another toy language.&lt;/p&gt;
+
+&lt;p&gt;Single-step relation.&lt;/p&gt;
+
+&lt;p&gt;Strong progress theorem fails for this language.&lt;/p&gt;
+
+&lt;p&gt;Typing relation.&lt;/p&gt;
+
+&lt;p&gt;Well-typed terms make progress.&lt;/p&gt;
+
+&lt;p&gt;The result of well-typed terms are well typed.&lt;/p&gt;
+
+&lt;p&gt;Because of progress and preservation, well-typed terms are sound.&lt;/p&gt;
+
+&lt;p&gt;More custom tactics.&lt;/p&gt;
+
+&lt;h2 id=&quot;volume-2--the-simply-typed-lambda-calculus&quot;&gt;Volume 2 : The Simply Typed Lambda-Calculus&lt;/h2&gt;
+
+&lt;p&gt;STLC = Simply Typed Lambda-Calculus&lt;/p&gt;
+
+&lt;p&gt;STLC embodies functional abstraction&lt;/p&gt;
+
+&lt;p&gt;Variable binding and substitution.&lt;/p&gt;
+
+&lt;h2 id=&quot;volume-2--properties-of-stlc&quot;&gt;Volume 2 : Properties of STLC&lt;/h2&gt;
+
+&lt;p&gt;Type safety theorem, canonical forms, progress theorem, preseration theorem, substitution lemma, context invariance, free variables.&lt;/p&gt;
+
+&lt;h2 id=&quot;volume-2--more-on-the-simply-typed-lambda-calculus&quot;&gt;Volume 2 : More on the Simply Typed Lambda-Calculus&lt;/h2&gt;
+
+&lt;p&gt;Numbers, let bindings, pairs, units, sums, lists, general recursion, records.&lt;/p&gt;
+
+&lt;p&gt;Coq hackery to make extensions to &lt;code class=&quot;highlighter-rouge&quot;&gt;auto&lt;/code&gt; with &lt;code class=&quot;highlighter-rouge&quot;&gt;Hint Extern&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;volume-2--subtyping&quot;&gt;Volume 2 : Subtyping&lt;/h2&gt;
+
+&lt;p&gt;Persons and students&lt;/p&gt;
+
+&lt;h2 id=&quot;volume-2--a-typechecker-for-stlc&quot;&gt;Volume 2 : A Typechecker for STLC&lt;/h2&gt;
+
+&lt;p&gt;Todo : Records, References, RecordSub, Norm, LibTactics, UseTactics, UseAuto, PE&lt;/p&gt;</content><author><name></name></author><summary type="html">Coq is a formal proof and verification system, which allow to proof mathematical statements and certify programs against a specification.</summary></entry></feed>
