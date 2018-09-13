@@ -246,7 +246,81 @@ subst dst2. rewrite H1 in H10. inversion H10.
 
 subst. rename st' into tmp1. rename st'0 into tmp2.
 
-(* We are now in the case where src goes through tmp1 to dst1, and also directly to dst1, and through tmp2 to dst2, and also directly to dst2 *)
+(* Stuck ? *)
+Abort.
 
-apply (c_eq tmp1 dst1 dst2).
+Theorem ceval_deterministic: forall c st st1 st2,
+     (ceval c st st1) ->
+     (ceval c st st2) ->
+     st1 = st2.
+intros c src dst1 dst2 h1 h2.
+generalize dependent dst2.
+induction h1.
+intros dst2 hskip.
+inversion_clear hskip. reflexivity.
+intros dst2 hass.
+inversion_clear hass. subst. reflexivity.
+intros dst1 hseq. inversion_clear hseq.
+rename st into s1.
+rename st'0 into s2.
+rename st'' into s3.
+apply (IHh1_2 dst1).
+rewrite (IHh1_1 s2). assumption. assumption.
+intros.
+inversion_clear h2.
+apply IHh1. assumption.
+rewrite H in H0. inversion H0.
+intros. inversion_clear h2.
+rewrite H0 in H. inversion H.
+apply IHh1. assumption.
+intros. inversion_clear h2. reflexivity. rewrite H0 in H. inversion H.
 
+rename st into s1.
+rename b into exp.
+rename st' into s2.
+rename st'' into s3.
+
+intro s2'.
+intro h_s1_s2'.
+rename s1 into sa.
+rename s2 into sb1.
+rename s2' into sb2.
+rename s3 into sc.
+apply IHh1_2.
+rewrite (IHh1_1 sa). assumption.
+Abort.
+
+Theorem ceval_deterministic: forall c st st1 st2,
+     (ceval c st st1) ->
+     (ceval c st st2) ->
+     st1 = st2.
+  intros c st st1 st2 E1 E2.
+  generalize dependent st2.
+  induction E1;
+           intros st2 E2; inversion E2; subst.
+  - (* E_Skip *) reflexivity.
+  - (* E_Ass *) reflexivity.
+  - (* E_Seq *)
+    assert (st' = st'0) as EQ1.
+    { (* Proof of assertion *) apply IHE1_1; assumption. }
+    subst st'0.
+    apply IHE1_2. assumption.
+  - (* E_IfTrue, b1 evaluates to true *)
+      apply IHE1. assumption.
+  - (* E_IfTrue,  b1 evaluates to false (contradiction) *)
+      rewrite H in H5. inversion H5.
+  - (* E_IfFalse, b1 evaluates to true (contradiction) *)
+    rewrite H in H5. inversion H5.
+  - (* E_IfFalse, b1 evaluates to false *)
+      apply IHE1. assumption.
+  - (* E_WhileFalse, b1 evaluates to false *)
+    reflexivity.
+  - (* E_WhileFalse, b1 evaluates to true (contradiction) *)
+    rewrite H in H2. inversion H2.
+  - (* E_WhileTrue, b1 evaluates to false (contradiction) *)
+    rewrite H in H4. inversion H4.
+  - (* E_WhileTrue, b1 evaluates to true *)
+      assert (st' = st'0) as EQ1.
+      { (* Proof of assertion *) apply IHE1_1. assumption. }
+      subst st'0.
+      apply IHE1_2. assumption. Qed.
