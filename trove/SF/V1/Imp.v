@@ -153,49 +153,100 @@ Theorem ceval_deterministic: forall c st st1 st2,
      (ceval c st st1) ->
      (ceval c st st2) ->
      st1 = st2.
-induction c.
-intros.
-inversion H.
-subst st1 st0.
-inversion H0.
+intros c.
+
+ (* We proceed by induction on the command *)
+induction c as [
+(* Skip *)
+|
+(* Assignment *) str exp
+|
+(* Sequences *) c1 eq_c1 c2 eq_c2
+|
+(* Conditionals *) exp c1 c1_eq c2 c2_eq
+|
+(* Loops *) exp c c_eq
+].
+
+(* First case is Skip *)
+intros src dst1 dst2 h1 h2.
+(* Using inversions on ceval for h1 and h2 leave only the cases for CSkip *)
+inversion h1 as [src1 useless1 src1eq dst1eq| | | | | | ];
+inversion h2 as [src2 useless2 src2eq dst2eq| | | | | | ].
+(* Now for some cleanup *)
+clear useless1 useless2.
+subst src1 dst1 src2 dst2.
+(* And we get to equality *)
 reflexivity.
-intros.
-inversion H.
-inversion H0.
-subst st0.
-subst x0.
-subst a0.
-subst st3.
-subst a1.
-subst x.
-subst n0.
-rewrite H5.
+
+(* Now is Assignment *)
+(* We should have introduced these properly in the induction step *)
+intros src dst1 dst2 h1 h2.
+inversion_clear h1 as [ | src1 exp1 n1 str1 src_exp_n1 str1eq src1eq src_str_n1_dst1 | | | | | ];
+inversion_clear h2 as [ | src2 exp2 n2 str2 src_exp_n2 str2eq src2eq src_str_n2_dst2 | | | | | ].
+(* Now we use the fact that n1 and n2 are actually the same things *)
+rewrite <- src_exp_n1.
+rewrite <- src_exp_n2.
+(* And we're done *)
 reflexivity.
-intros.
-inversion H0.
-inversion H.
-subst.
-apply (IHc2 st' st1 st2).
-rewrite (IHc2 st'0 st1 st2). assumption. assumption.
-rewrite (IHc1 st st'0 st').
-assumption.
-assumption.
-assumption.
-assumption.
-intros.
-inversion H.
-inversion H0.
-subst.
-destruct (beval st b).
-apply (IHc1 st st1 st2). assumption. assumption.
-inversion H13.
-subst.
-rewrite H6 in H13. inversion H13.
-subst. 
-apply (IHc2 st st1 st2). assumption. 
-inversion H0. subst. rewrite H8 in H6. inversion H6.
-subst. assumption.
-intros.
-inversion H;inversion H0;subst;destruct (beval st2 b);try(reflexivity).
-inversion H5. rewrite H8 in H2. inversion H2. inversion H5. rewrite H8 in H2. inversion H2. inversion H12. inversion H3.
-apply (IHc st st1 st2).
+
+(* We're now dealing with the sequence commands *)
+(* Then some intros *)
+intros src dst1 dst2 h1 h2.
+(* Then the inversions *)
+inversion_clear h1 as  [ | | c1_1 c2_1 src_1  tmp1 dst1_1 src_to_tmp1 tmp1_to_dst1 c2_eq1 src1eq dst11eq | | | | ];
+inversion_clear h2 as  [ | | c1_2 c2_2 src_2  tmp2 dst1_2 src_to_tmp2 tmp2_to_dst2 c2_eq2 src2eq dst12eq | | | | ].
+(* Now is where the magic happens *)
+(* We first assert that dst1 and dst2 are equals using eq_c2 *)
+apply (eq_c2 tmp1 dst1 dst2).
+(* This require proving that we can go with c2 from tmp1 to dst1, and from tmp1 to dst2*)
+(* The fact that we can go from tmp1 to dst1 is true by assumption *)
+ assumption.
+(* But the fact that we can go from tmp1 to dst2 is less obvious *)
+(* So we use eq_c2 to rewrite dst2 into dst1 *)
+(* This leaves the current goal in a nice form, but introduce the obligation to prove we can go from tmp2 to dst1 and from tmp2 to dst2 *)
+rewrite <- (eq_c2 tmp2 dst1 dst2).
+(* The nice form is true by assumption *) assumption.
+(* To prove that we can go from tmp2 to dst1 through c2, we rewrite tmp2 into tmp1 with eq_c1 *)
+(* This leaves the current goal in a nice form, but introduce the obligation to prove that we can go with c1 from src to tmp2 and from src to tmp1 *)
+rewrite (eq_c1 src tmp2 tmp1).
+(* This is the nice form *) assumption.
+(* src to tmp2 is in the assumptions *) assumption.
+(* src to tmp1 is in the assumptions *) assumption.
+(* and tmp2 to dst2 is in the assumptions *)assumption.
+
+(* We're now dealing with conditionals *)
+intros src dst1 dst2.
+intros h1 h2.
+(* Here each inversions yields two cases, which make for 4 cases in total *)
+inversion_clear h1 as [ | |
+| src1 dst1_1 exp_1 c1_1 c2_1 src_exp_true_1  c1_src1_dst1 exp1_eq src1_eq dst1_1_eq
+| src1 dst1_1 exp_1 c1_1 c2_1 src_exp_false_1 c1_src1_dst1 exp1_eq src1_eq dst1_1_eq
+| | ];
+inversion_clear h2 as [ | |
+| src2 dst1_2 exp_2 c1_2 c2_2 src_exp_true_2  c1_src2_dst2 exp2_eq src2_eq dst1_2_eq
+| src2 dst1_2 exp_2 c1_2 c2_2 src_exp_false_2  c1_src2_dst2 exp2_eq src2_eq dst1_2_eq
+| | ].
+(* First case goes through c1, because the condition is true *)
+apply (c1_eq src dst1 dst2). assumption. assumption.
+(* Second case is nonsense *)
+rewrite src_exp_false_2 in src_exp_true_1. inversion src_exp_true_1.
+(* Third case is nonsense *)
+rewrite src_exp_true_2 in src_exp_false_1. inversion src_exp_false_1.
+(* And fourth case goes through c2, because the condition is false *)
+apply (c2_eq src dst1 dst2). assumption. assumption.
+
+(* We're now left with dealing with loops *)
+intros src dst1 dst2.
+intros h1 h2.
+inversion h1;inversion h2.
+subst dst1. subst dst2. reflexivity.
+subst dst1. rewrite H3 in H6. inversion H6.
+subst dst2. rewrite H1 in H10. inversion H10.
+
+subst. rename st' into tmp1. rename st'0 into tmp2.
+
+(* We are now in the case where src goes through tmp1 to dst1, and also directly to dst1, and through tmp2 to dst2, and also directly to dst2 *)
+
+apply (c_eq tmp1 dst1 dst2).
+
