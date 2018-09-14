@@ -1,4 +1,4 @@
-DIGEST 2f058666ac080b63a344155f51c518d7
+DIGEST ce4894ab317ebeacbe80609853c49aa3
 FImp
 R15:27 Coq.Bool.Bool <> <> lib
 R45:59 Coq.Arith.Arith <> <> lib
@@ -448,3 +448,39 @@ R4321:4325 Imp <> ceval ind
 R4332:4334 Imp <> st1 var
 R4329:4330 Imp <> st var
 R4327:4327 Imp <> c var
+prf 8250:8268 <> ceval_deterministic
+R8297:8297 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R8312:8321 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R8322:8322 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R8337:8346 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R8350:8352 Coq.Init.Logic <> :type_scope:x_'='_x not
+R8347:8349 Imp <> st1 var
+R8353:8355 Imp <> st2 var
+R8323:8327 Imp <> ceval ind
+R8334:8336 Imp <> st2 var
+R8331:8332 Imp <> st var
+R8329:8329 Imp <> c var
+R8298:8302 Imp <> ceval ind
+R8309:8311 Imp <> st1 var
+R8306:8307 Imp <> st var
+R8304:8304 Imp <> c var
+prf 9197:9215 <> ceval_deterministic
+R9244:9244 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R9259:9268 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R9269:9269 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R9284:9293 Coq.Init.Logic <> :type_scope:x_'->'_x not
+R9297:9299 Coq.Init.Logic <> :type_scope:x_'='_x not
+R9294:9296 Imp <> st1 var
+R9300:9302 Imp <> st2 var
+R9270:9274 Imp <> ceval ind
+R9281:9283 Imp <> st2 var
+R9278:9279 Imp <> st var
+R9276:9276 Imp <> c var
+R9245:9249 Imp <> ceval ind
+R9256:9258 Imp <> st1 var
+R9253:9254 Imp <> st var
+R9251:9251 Imp <> c var
+R9515:9517 Coq.Init.Logic <> :type_scope:x_'='_x not
+R9515:9517 Coq.Init.Logic <> :type_scope:x_'='_x not
+R10286:10288 Coq.Init.Logic <> :type_scope:x_'='_x not
+R10286:10288 Coq.Init.Logic <> :type_scope:x_'='_x not

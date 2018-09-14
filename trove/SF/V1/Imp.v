@@ -149,7 +149,7 @@ Inductive ceval : com -> state -> state -> Prop :=
       (ceval (CWhile b c) st' st'') ->
       (ceval (CWhile b c) st st'').
 
-Theorem ceval_deterministic: forall c st st1 st2,
+Theorem ceval_deterministic_my_way: forall c st st1 st2,
      (ceval c st st1) ->
      (ceval c st st2) ->
      st1 = st2.
@@ -249,7 +249,7 @@ subst. rename st' into tmp1. rename st'0 into tmp2.
 (* Stuck ? *)
 Abort.
 
-Theorem ceval_deterministic: forall c st st1 st2,
+Theorem my_way_with_teacher_inspiration: forall c st st1 st2,
      (ceval c st st1) ->
      (ceval c st st2) ->
      st1 = st2.
@@ -275,22 +275,25 @@ rewrite H0 in H. inversion H.
 apply IHh1. assumption.
 intros. inversion_clear h2. reflexivity. rewrite H0 in H. inversion H.
 
-rename st into s1.
+rename IHh1_1 into src_to_tmp1.
+rename IHh1_2 into tmp1_to_dst1.
+
+rename st into src.
+rename st' into tmp1.
+rename st'' into dst1.
+
+intros.
+
+inversion h2. subst b0 c0 st. subst src.
 rename b into exp.
-rename st' into s2.
-rename st'' into s3.
+rewrite H in H4. inversion H4.
+subst b0 c0 st. subst st''.
+rename st' into tmp2.
+apply (tmp1_to_dst1 dst2).
+rewrite (src_to_tmp1 tmp2). assumption. assumption.
+Qed.
 
-intro s2'.
-intro h_s1_s2'.
-rename s1 into sa.
-rename s2 into sb1.
-rename s2' into sb2.
-rename s3 into sc.
-apply IHh1_2.
-rewrite (IHh1_1 sa). assumption.
-Abort.
-
-Theorem ceval_deterministic: forall c st st1 st2,
+Theorem ceval_deterministic_almost_like_the_teacher: forall c st st1 st2,
      (ceval c st st1) ->
      (ceval c st st2) ->
      st1 = st2.
@@ -320,7 +323,16 @@ Theorem ceval_deterministic: forall c st st1 st2,
   - (* E_WhileTrue, b1 evaluates to false (contradiction) *)
     rewrite H in H4. inversion H4.
   - (* E_WhileTrue, b1 evaluates to true *)
-      assert (st' = st'0) as EQ1.
-      { (* Proof of assertion *) apply IHE1_1. assumption. }
-      subst st'0.
-      apply IHE1_2. assumption. Qed.
+      rename st into src.
+      rename st' into tmp1.
+      rename st'0 into tmp2.
+      rename st'' into dst1.
+      rename st2 into dst2.
+      rename IHE1_1 into src_to_tmp1.
+      rename IHE1_2 into tmp1_to_dst1.
+
+      apply (tmp1_to_dst1 dst2).
+      rewrite (src_to_tmp1 tmp2). assumption.
+      assumption.
+
+Qed.
