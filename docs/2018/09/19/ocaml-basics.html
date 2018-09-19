@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Adventures in OCaml Basics | Adventures</title>
+<meta name="generator" content="Jekyll v3.8.3" />
+<meta property="og:title" content="Adventures in OCaml Basics" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="OCaml is a functional programming language." />
+<meta property="og:description" content="OCaml is a functional programming language." />
+<link rel="canonical" href="https://xavierdpt.github.io/adventures/2018/09/19/ocaml-basics.html" />
+<meta property="og:url" content="https://xavierdpt.github.io/adventures/2018/09/19/ocaml-basics.html" />
+<meta property="og:site_name" content="Adventures" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-09-19T08:00:00+02:00" />
+<script type="application/ld+json">
+{"mainEntityOfPage":{"@type":"WebPage","@id":"https://xavierdpt.github.io/adventures/2018/09/19/ocaml-basics.html"},"@type":"BlogPosting","url":"https://xavierdpt.github.io/adventures/2018/09/19/ocaml-basics.html","headline":"Adventures in OCaml Basics","dateModified":"2018-09-19T08:00:00+02:00","datePublished":"2018-09-19T08:00:00+02:00","description":"OCaml is a functional programming language.","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/adventures/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://xavierdpt.github.io/adventures/feed.xml" title="Adventures" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/adventures/">Adventures</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/adventures/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Adventures in OCaml Basics</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2018-09-19T08:00:00+02:00" itemprop="datePublished">Sep 19, 2018
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p><a href="https://en.wikipedia.org/wiki/OCaml">OCaml</a> is a functional programming language.</p>
+
+<p>There are some <a href="https://ocaml.org/learn/tutorials/">tutorials</a> available, and we’re delving today into the <a href="https://ocaml.org/learn/tutorials/basics.html">basics</a> of OCaml.</p>
+
+<p>There are two ways to run ocaml program interactively.</p>
+
+<p>One is to use <code class="highlighter-rouge">ocaml</code>. Readline functionality can be added using <code class="highlighter-rouge">rlwrap ocaml</code>.</p>
+
+<p>The other is to use <code class="highlighter-rouge">utop</code>.</p>
+
+<p>To compile an ocaml program <code class="highlighter-rouge">program.ml</code> into a binary, use the magical command <code class="highlighter-rouge">ocamlbuild myprogram.native</code>.</p>
+
+<p>Related Ubuntu packages include <code class="highlighter-rouge">ocaml</code>, <code class="highlighter-rouge">rlwrap</code>, <code class="highlighter-rouge">utop</code> and <code class="highlighter-rouge">ocamlbuild</code>.</p>
+
+<p>The basics tutorial states the following things.</p>
+
+<p>First, in interactive mode, use <code class="highlighter-rouge">;;</code> to specify that you’re done entering every command. Why you have to do this in interactive mode but not in files is not specify.</p>
+
+<p>Comments begins with <code class="highlighter-rouge">(*</code> and end with <code class="highlighter-rouge">*)</code> and can be nested.</p>
+
+<p>To print a string on the screen, use</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">print_endline "Hello World !"</code></pre></figure>
+
+<p>To define a function, use <code class="highlighter-rouge">let f arg1 arg2 ... = </code>. Example:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">let double x = x + x</code></pre></figure>
+
+<p>In the previous example, referring to <code class="highlighter-rouge">double</code> in the body would not refer to the function being defined but to any function already present in the scope.</p>
+
+<p>To define a recursive function, use <code class="highlighter-rouge">let rec f arg1 arg2 ... = </code>. Then <code class="highlighter-rouge">f</code> can refers to itself when invoked in the body.</p>
+
+<p>To define a local variable, use <code class="highlighter-rouge">let x = expr in body</code>. References to <code class="highlighter-rouge">x</code> in <code class="highlighter-rouge">expr</code> are to the <code class="highlighter-rouge">x</code> in the upper scope, but references to <code class="highlighter-rouge">x</code> in the body are to the new definition. This allows redefining variables locally.</p>
+
+<p>Basic types include <code class="highlighter-rouge">int</code>, <code class="highlighter-rouge">float</code>, <code class="highlighter-rouge">bool</code>, <code class="highlighter-rouge">char</code>, <code class="highlighter-rouge">string</code>, <code class="highlighter-rouge">unit</code>, <code class="highlighter-rouge">nativeint</code>.</p>
+
+<p>Float have double precision. There’s no single precision type.</p>
+
+<p>Integers are on 31 or 63 bits, native integers are on 32 or 64 bits.</p>
+
+<p>Chars do not support Unicode.</p>
+
+<p>To call a function <code class="highlighter-rouge">f</code> on arguments <code class="highlighter-rouge">arg1</code> <code class="highlighter-rouge">arg2</code>, simply write <code class="highlighter-rouge">f arg1 arg2</code>, i.e. no parentheseses for function calls.</p>
+
+<p>To convert from one type to another, use the functions <code class="highlighter-rouge">float_of_int</code> where <code class="highlighter-rouge">float</code> is the destination and <code class="highlighter-rouge">int</code> is the source. Adapt accordingly to each type.</p>
+
+<p>Arithmetic operators apply on integers. The versions on floats are suffixed with a dot.</p>
+
+<p>OCaml performs type inference so that specifying types is almost always optional.</p>
+
+<p>Also, <code class="highlighter-rouge">let</code> and conditionals return a value.</p>
+
+<p>Here’s a <a href="https://github.com/xavierdpt/adventures/tree/master/trove/ocaml/basics.ml">meaningless example</a> which uses many of the features described here.</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">(* comment *)
+(*
+ * multiline
+ * (* nested comment *)
+ *)
+
+let f x = int_of_float ((float_of_int x) +. 3.4)
+
+let rec r n = 1 + if n&gt;0 then (n + (r (n-1))) else 3
+
+let () = let a = 7 in print_endline (string_of_int (r (let a = f a in f a)))</code></pre></figure>
+
+<p>Try to identify type conversions, function definitions, recursive functions, conditionals and let which return values, variable overriding and printing strings, and make sure you’re confortable with it.</p>
+
+
+  </div><a class="u-url" href="/adventures/2018/09/19/ocaml-basics.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/adventures/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Adventures</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Adventures</li><li><a class="u-email" href="mailto:xavierdpt@gmail.com">xavierdpt@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Tales of a knowledge traveller.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

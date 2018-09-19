@@ -1,4 +1,70 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="http://localhost:4000/adventures/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/adventures/" rel="alternate" type="text/html" /><updated>2018-09-11T14:29:41+02:00</updated><id>http://localhost:4000/adventures/</id><title type="html">Adventures</title><subtitle>Tales of a knowledge traveller.</subtitle><entry><title type="html">Adventures in Coq</title><link href="http://localhost:4000/adventures/something/2018/09/07/adventures_in_coq.html" rel="alternate" type="text/html" title="Adventures in Coq" /><published>2018-09-07T08:00:00+02:00</published><updated>2018-09-07T08:00:00+02:00</updated><id>http://localhost:4000/adventures/something/2018/09/07/adventures_in_coq</id><content type="html" xml:base="http://localhost:4000/adventures/something/2018/09/07/adventures_in_coq.html">&lt;p&gt;&lt;a href=&quot;https://coq.inria.fr/&quot;&gt;Coq&lt;/a&gt; is a formal proof and verification system, which allow to proof mathematical statements and certify programs against a specification.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="https://xavierdpt.github.io/adventures/feed.xml" rel="self" type="application/atom+xml" /><link href="https://xavierdpt.github.io/adventures/" rel="alternate" type="text/html" /><updated>2018-09-19T11:45:21+02:00</updated><id>https://xavierdpt.github.io/adventures/</id><title type="html">Adventures</title><subtitle>Tales of a knowledge traveller.</subtitle><entry><title type="html">Adventures in OCaml Basics</title><link href="https://xavierdpt.github.io/adventures/2018/09/19/ocaml-basics.html" rel="alternate" type="text/html" title="Adventures in OCaml Basics" /><published>2018-09-19T08:00:00+02:00</published><updated>2018-09-19T08:00:00+02:00</updated><id>https://xavierdpt.github.io/adventures/2018/09/19/ocaml-basics</id><content type="html" xml:base="https://xavierdpt.github.io/adventures/2018/09/19/ocaml-basics.html">&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/OCaml&quot;&gt;OCaml&lt;/a&gt; is a functional programming language.&lt;/p&gt;
+
+&lt;p&gt;There are some &lt;a href=&quot;https://ocaml.org/learn/tutorials/&quot;&gt;tutorials&lt;/a&gt; available, and we’re delving today into the &lt;a href=&quot;https://ocaml.org/learn/tutorials/basics.html&quot;&gt;basics&lt;/a&gt; of OCaml.&lt;/p&gt;
+
+&lt;p&gt;There are two ways to run ocaml program interactively.&lt;/p&gt;
+
+&lt;p&gt;One is to use &lt;code class=&quot;highlighter-rouge&quot;&gt;ocaml&lt;/code&gt;. Readline functionality can be added using &lt;code class=&quot;highlighter-rouge&quot;&gt;rlwrap ocaml&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The other is to use &lt;code class=&quot;highlighter-rouge&quot;&gt;utop&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;To compile an ocaml program &lt;code class=&quot;highlighter-rouge&quot;&gt;program.ml&lt;/code&gt; into a binary, use the magical command &lt;code class=&quot;highlighter-rouge&quot;&gt;ocamlbuild myprogram.native&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Related Ubuntu packages include &lt;code class=&quot;highlighter-rouge&quot;&gt;ocaml&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;rlwrap&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;utop&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;ocamlbuild&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The basics tutorial states the following things.&lt;/p&gt;
+
+&lt;p&gt;First, in interactive mode, use &lt;code class=&quot;highlighter-rouge&quot;&gt;;;&lt;/code&gt; to specify that you’re done entering every command. Why you have to do this in interactive mode but not in files is not specify.&lt;/p&gt;
+
+&lt;p&gt;Comments begins with &lt;code class=&quot;highlighter-rouge&quot;&gt;(*&lt;/code&gt; and end with &lt;code class=&quot;highlighter-rouge&quot;&gt;*)&lt;/code&gt; and can be nested.&lt;/p&gt;
+
+&lt;p&gt;To print a string on the screen, use&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;print_endline &quot;Hello World !&quot;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;To define a function, use &lt;code class=&quot;highlighter-rouge&quot;&gt;let f arg1 arg2 ... = &lt;/code&gt;. Example:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;let double x = x + x&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;In the previous example, referring to &lt;code class=&quot;highlighter-rouge&quot;&gt;double&lt;/code&gt; in the body would not refer to the function being defined but to any function already present in the scope.&lt;/p&gt;
+
+&lt;p&gt;To define a recursive function, use &lt;code class=&quot;highlighter-rouge&quot;&gt;let rec f arg1 arg2 ... = &lt;/code&gt;. Then &lt;code class=&quot;highlighter-rouge&quot;&gt;f&lt;/code&gt; can refers to itself when invoked in the body.&lt;/p&gt;
+
+&lt;p&gt;To define a local variable, use &lt;code class=&quot;highlighter-rouge&quot;&gt;let x = expr in body&lt;/code&gt;. References to &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; in &lt;code class=&quot;highlighter-rouge&quot;&gt;expr&lt;/code&gt; are to the &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; in the upper scope, but references to &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; in the body are to the new definition. This allows redefining variables locally.&lt;/p&gt;
+
+&lt;p&gt;Basic types include &lt;code class=&quot;highlighter-rouge&quot;&gt;int&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;float&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;bool&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;char&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;string&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;unit&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;nativeint&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Float have double precision. There’s no single precision type.&lt;/p&gt;
+
+&lt;p&gt;Integers are on 31 or 63 bits, native integers are on 32 or 64 bits.&lt;/p&gt;
+
+&lt;p&gt;Chars do not support Unicode.&lt;/p&gt;
+
+&lt;p&gt;To call a function &lt;code class=&quot;highlighter-rouge&quot;&gt;f&lt;/code&gt; on arguments &lt;code class=&quot;highlighter-rouge&quot;&gt;arg1&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;arg2&lt;/code&gt;, simply write &lt;code class=&quot;highlighter-rouge&quot;&gt;f arg1 arg2&lt;/code&gt;, i.e. no parentheseses for function calls.&lt;/p&gt;
+
+&lt;p&gt;To convert from one type to another, use the functions &lt;code class=&quot;highlighter-rouge&quot;&gt;float_of_int&lt;/code&gt; where &lt;code class=&quot;highlighter-rouge&quot;&gt;float&lt;/code&gt; is the destination and &lt;code class=&quot;highlighter-rouge&quot;&gt;int&lt;/code&gt; is the source. Adapt accordingly to each type.&lt;/p&gt;
+
+&lt;p&gt;Arithmetic operators apply on integers. The versions on floats are suffixed with a dot.&lt;/p&gt;
+
+&lt;p&gt;OCaml performs type inference so that specifying types is almost always optional.&lt;/p&gt;
+
+&lt;p&gt;Also, &lt;code class=&quot;highlighter-rouge&quot;&gt;let&lt;/code&gt; and conditionals return a value.&lt;/p&gt;
+
+&lt;p&gt;Here’s a &lt;a href=&quot;https://github.com/xavierdpt/adventures/tree/master/trove/ocaml/basics.ml&quot;&gt;meaningless example&lt;/a&gt; which uses many of the features described here.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;(* comment *)
+(*
+ * multiline
+ * (* nested comment *)
+ *)
+
+let f x = int_of_float ((float_of_int x) +. 3.4)
+
+let rec r n = 1 + if n&amp;gt;0 then (n + (r (n-1))) else 3
+
+let () = let a = 7 in print_endline (string_of_int (r (let a = f a in f a)))&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Try to identify type conversions, function definitions, recursive functions, conditionals and let which return values, variable overriding and printing strings, and make sure you’re confortable with it.&lt;/p&gt;</content><author><name></name></author><summary type="html">OCaml is a functional programming language.</summary></entry><entry><title type="html">Adventures in Coq</title><link href="https://xavierdpt.github.io/adventures/something/2018/09/07/adventures_in_coq.html" rel="alternate" type="text/html" title="Adventures in Coq" /><published>2018-09-07T08:00:00+02:00</published><updated>2018-09-07T08:00:00+02:00</updated><id>https://xavierdpt.github.io/adventures/something/2018/09/07/adventures_in_coq</id><content type="html" xml:base="https://xavierdpt.github.io/adventures/something/2018/09/07/adventures_in_coq.html">&lt;p&gt;&lt;a href=&quot;https://coq.inria.fr/&quot;&gt;Coq&lt;/a&gt; is a formal proof and verification system, which allow to proof mathematical statements and certify programs against a specification.&lt;/p&gt;
 
 &lt;p&gt;The &lt;a href=&quot;https://coq.inria.fr/documentation&quot;&gt;documentation section&lt;/a&gt; has a link to &lt;a href=&quot;https://softwarefoundations.cis.upenn.edu/&quot;&gt;Software Foundations&lt;/a&gt;, a 4-Volumes work about functional programming, theorem proving, operational semantics, Hoare logic, type systems, specification and verification.&lt;/p&gt;
 
